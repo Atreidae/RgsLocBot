@@ -1,4 +1,39 @@
-﻿
+﻿<#  
+.SYNOPSIS  
+	this script should not be run directly. it is intended to be called as a scheduled task
+
+
+.DESCRIPTION  
+	Created by James Arber. www.skype4badmin.com
+	Built with PoshTools www.poshtools.com
+    
+	
+.NOTES  
+    Version      	   	: 0.1 (Devel)
+	Date			    : 29/12/2017
+	Lync Version		: Tested against Skype4B 2015
+    Author    			: James Arber
+	Header stolen from  : Greig Sheridan who stole it from Pat Richard's amazing "Get-CsConnections.ps1"
+							
+	:v0.1:	Internal Build
+	
+.LINK  
+    https://www.skype4badmin.com
+
+.KNOWN ISSUES
+   None at this stage, this is however in development code and bugs are expected
+
+.EXAMPLE Starts the RGSLocBot Configuration Gui
+    PS C:\> .\Start-CsRgsLocBotGui.ps1
+
+.INPUT
+Start-CsRgsLocBotGui Does not accept input from the pipeline.
+
+.Output
+Start-CsRgsLocBotGui Does not output to the pipeline
+
+#>
+
 
 
  # Input Globals
@@ -7,7 +42,67 @@
  $s4bAutodiscover = "https://lyncdiscover.icomm.com.au"
  $pwd = $password | convertto-securestring -AsPlainText -Force
 
+ 
+#############################
+# Script Specific Variables #
+#############################
 
+	$ScriptVersion = 0.1
+	$StartTime = Get-Date
+	Write-Host "Info: Start-CsRGSLocBotGui Version $ScriptVersion started at $StartTime" -ForegroundColor Green
+	$LogFileLocation = $PSCommandPath -replace ".ps1",".log" #Where do we store the log files? (In the same folder by default)
+	$DefaultLogComponent = "Unknown" 
+	Write-Host "Info: Importing Base Variables" -ForegroundColor Green
+
+
+
+#region Functions
+
+ ##################
+  # Function Block #
+  ##################
+Function Write-Log {
+    PARAM(
+         [String]$Message,
+         [String]$Path = $LogFileLocation,
+         [int]$severity = 1,
+         [string]$component = "Default"
+         )
+
+         $TimeZoneBias = Get-WmiObject -Query "Select Bias from Win32_TimeZone"
+         $Date= Get-Date -Format "HH:mm:ss"
+         $Date2= Get-Date -Format "MM-dd-yyyy"
+
+         $MaxLogFileSizeMB = 10
+         If(Test-Path $Path)
+         {
+            if(((gci $Path).length/1MB) -gt $MaxLogFileSizeMB) # Check the size of the log file and archive if over the limit.
+            {
+                $ArchLogfile = $Path.replace(".log", "_$(Get-Date -Format dd-MM-yyy_hh-mm-ss).lo_")
+                ren $Path $ArchLogfile
+            }
+         }
+         
+		 "$env:ComputerName date=$([char]34)$date2$([char]34) time=$([char]34)$date$([char]34) component=$([char]34)$component$([char]34) type=$([char]34)$severity$([char]34) Message=$([char]34)$Message$([char]34)"| Out-File -FilePath $Path -Append -NoClobber -Encoding default
+         #If the log entry is just informational (less than 2), output it to write verbose
+		 if ($severity -le 2) {"Info: $date $Message"| Write-Host -ForegroundColor Green}
+		 #If the log entry has a severity of 3 assume its a warning and write it to write-warning
+		 if ($severity -eq 3) {"$date $Message"| Write-Warning}
+		 #If the log entry has a severity of 4 or higher, assume its an error and display an error message (Note, critical errors are caught by throw statements so may not appear here)
+		 if ($severity -ge 4) {"$date $Message"| Write-Error}
+} 
+
+
+
+
+function Connect-CsUCWAAPI{
+
+
+
+}
+
+
+#endregion Functions
 
 
  
@@ -45,7 +140,7 @@ try{
 The following script will create an application on the UCWA endpoint. The Endpoint ID you can make up yourself. Same for the Application name.#>
 
 write-verbose "Create App Instance"
-$userAgent = "RGSBugMeNot"
+$userAgent = "RGSLocBot Version $version"
 $EndpointID = "f6d747f3-d2f3-4e07-9f73-c1515fcc9585"
 
  

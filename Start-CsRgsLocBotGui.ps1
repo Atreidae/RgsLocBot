@@ -1,9 +1,8 @@
-﻿<#  
-.SYNOPSIS  
-	This is a quick and nasty user migration script.
-	It will check if the user is homed on-prem or online. Migrate them to on-prem, enable their Exchange UM
-	It also includes some basic error checking and logging but isnt the most elegant thing out there
+﻿
 
+<#  
+.SYNOPSIS  
+	Todo, build synopsis
 
 
 .DESCRIPTION  
@@ -26,26 +25,14 @@
 .KNOWN ISSUES
    None at this stage, this is however in development code and bugs are expected
 
-.EXAMPLE Migrates a single user, configures their voice routing and sets up exchange UM
-    PS C:\> .\Test-CsLisIpAddress.ps1 192.168.150.128/24
-
-.EXAMPLE Migrates all the users in Example.Csv, configures their voice routing and sets up exchange UM
-	PS C:\> .\Test-CsLisIpAddress.ps1 192.168.150.128 255.255.255.0
-
-.PARAMETER IpAddress
-	IP address of example user in "192.168.0.1" format or with CIDR notation ie "192.168.0.1/24"
-
-.PARAMETER SubnetMask
-	Subnet mask of example user in mask format ie "255.255.255.0" (no wildcards for you cisco types out there)
-
-.PARAMETER -DisableScriptUpdate
-    Stops the script from checking online for an update and prompting the user to download. Ideal for scheduled tasks
+.EXAMPLE Starts the RGSLocBot Configuration Gui
+    PS C:\> .\Start-CsRgsLocBotGui.ps1
 
 .INPUT
-Test-CsLisIpAddress accepts pipeline input of single objects with named properties matching parameters.
+Start-CsRgsLocBotGui Does not accept input from the pipeline.
 
 .Output
-Custom.PsObject. Test-CsLisIpAddress returns a the results of a migration as a custom object on the pipeline.
+Start-CsRgsLocBotGui Does not output to the pipeline
 
 #>
 
@@ -93,6 +80,8 @@ Function Write-Log {
 		 "$env:ComputerName date=$([char]34)$date2$([char]34) time=$([char]34)$date$([char]34) component=$([char]34)$component$([char]34) type=$([char]34)$severity$([char]34) Message=$([char]34)$Message$([char]34)"| Out-File -FilePath $Path -Append -NoClobber -Encoding default
          #If the log entry is just informational (less than 2), output it to write verbose
 		 if ($severity -le 2) {"Info: $date $Message"| Write-Host -ForegroundColor Green}
+		 #If the severity is 2, its a status message. So we should write it to the status bar
+		 if ($severity -ge 2) {$toolStripStatusLabel1.text = "$date $message"}
 		 #If the log entry has a severity of 3 assume its a warning and write it to write-warning
 		 if ($severity -eq 3) {"$date $Message"| Write-Warning}
 		 #If the log entry has a severity of 4 or higher, assume its an error and display an error message (Note, critical errors are caught by throw statements so may not appear here)
@@ -185,6 +174,45 @@ if ($DisableScriptUpdate -eq $false) {
 #endregion functions
 
 
+#region Controls
+
+
+#region Configtab
+
+#AutoDiscover Test Button
+$btn_TestAutodiscover_Click = {
+	$s4bAutodiscover = ($tbx_Autodiscover.text)
+	 Write-Log -component "Config" -Message "Testing Autodiscover" -severity 2
+	 Write-Log -component "Config" -Message "User defined url is $s4bAutodiscover" -severity 1
+	try{
+		Write-Log -component "Config" -Message "Invoking webrequest" -severity 1
+		$data = Invoke-WebRequest -Uri $s4bAutodiscover -Method GET -ContentType "application/json" -UseBasicParsing
+		 Write-Log -component "Config" -Message "got data, parsing" -severity 1
+ 		$baseurl = (($data.content | ConvertFrom-JSON)._links.user.href).split("/")[0..2] -join "/"
+		 Write-Log -component "Config" -Message "Found BaseURL $baseurl" -severity 1
+ 		$oauthurl = ($data.content | convertfrom-json)._links.user.href
+		 Write-Log -component "Config" -Message "Found OauthURL $oauthurl" -severity 1
+		 Write-Log -component "Config" -Message "AutoDiscover test passed, Found UCWA details" -severity 2
+		$btn_TestAutodiscover.backcolor = "LimeGreen"
+	}catch{
+		Write-Log -component "Config" -Message "Something went wrong getting to the AutoDiscover URL or the data was bad" -severity 3
+		Write-Log -component "Config" -Message "Setting button red" -severity 1
+		$btn_TestAutodiscover.backcolor = "red"
+	}
+}
+
+#AutoDiscover Textbox
+$tbx_Autodiscover_TextChanged = {
+	Write-Log -component "Config" -Message "Autodiscover URL changed" -severity 2
+	Write-Log -component "Config" -Message "Setting button yellow" -severity 1
+	$btn_TestAutodiscover.backcolor = "Yellow"
+}
+
+#endregion Configtab
+
+
+
+#endregion Controls
 
 
 
