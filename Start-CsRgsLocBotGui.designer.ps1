@@ -3,7 +3,6 @@
 $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.TabControl]$TabControl = $null
 [System.Windows.Forms.TabPage]$RulesTab = $null
-[System.Windows.Forms.ComboBox]$comboBox6 = $null
 [System.Windows.Forms.Label]$label13 = $null
 [System.Windows.Forms.Button]$btn_copyrule = $null
 [System.Windows.Forms.Button]$btn_deleterule = $null
@@ -20,28 +19,21 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$Btn_NewGroup = $null
 [System.Windows.Forms.Label]$label10 = $null
 [System.Windows.Forms.TextBox]$Tbx_RuleName = $null
-[System.Windows.Forms.ComboBox]$comboBox5 = $null
 [System.Windows.Forms.Label]$label9 = $null
 [System.Windows.Forms.Button]$Btn_RevertRule = $null
 [System.Windows.Forms.Label]$label8 = $null
 [System.Windows.Forms.Label]$label5 = $null
-[System.Windows.Forms.ComboBox]$comboBox4 = $null
 [System.Windows.Forms.Label]$label7 = $null
 [System.Windows.Forms.Label]$label6 = $null
 [System.Windows.Forms.Label]$label4 = $null
-[System.Windows.Forms.ComboBox]$comboBox3 = $null
 [System.Windows.Forms.CheckedListBox]$cbx_ResponseGroupQueues = $null
 [System.Windows.Forms.Label]$label3 = $null
-[System.Windows.Forms.ComboBox]$comboBox2 = $null
 [System.Windows.Forms.CheckedListBox]$cbx_groups = $null
 [System.Windows.Forms.Label]$label2 = $null
 [System.Windows.Forms.Button]$btn_RuleSave = $null
-[System.Windows.Forms.ComboBox]$comboBox1 = $null
 [System.Windows.Forms.Label]$label1 = $null
 [System.Windows.Forms.CheckedListBox]$cbx_Location = $null
 [System.Windows.Forms.TabPage]$tabPage2 = $null
-[System.Windows.Forms.TextBox]$textBox2 = $null
-[System.Windows.Forms.TextBox]$textBox1 = $null
 [System.Windows.Forms.Label]$label15 = $null
 [System.Windows.Forms.TextBox]$textBox4 = $null
 [System.Windows.Forms.Label]$label14 = $null
@@ -53,13 +45,21 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.StatusStrip]$statusStrip1 = $null
 [System.Windows.Forms.ToolStripProgressBar]$toolStripProgressBar1 = $null
 [System.Windows.Forms.ToolStripStatusLabel]$toolStripStatusLabel1 = $null
+[System.Windows.Forms.ComboBox]$dbx__FEpool = $null
+[System.Windows.Forms.TextBox]$tbx_RemoveMsg = $null
+[System.Windows.Forms.TextBox]$tbx_AddedMsg = $null
+[System.Windows.Forms.ComboBox]$dbx_LocLogic = $null
+[System.Windows.Forms.ComboBox]$Dbx_LocMsgBool = $null
+[System.Windows.Forms.ComboBox]$dbx_LocAction = $null
+[System.Windows.Forms.ComboBox]$dbx_GrpBool = $null
+[System.Windows.Forms.ComboBox]$dbx_LocBool = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
 [System.Resources.ResXResourceReader]$resources = New-Object -TypeName System.Resources.ResXResourceReader -ArgumentList "$PSScriptRoot\Start-CsRgsLocBotGui.resx"
 $TabControl = (New-Object -TypeName System.Windows.Forms.TabControl)
 $RulesTab = (New-Object -TypeName System.Windows.Forms.TabPage)
-$comboBox6 = (New-Object -TypeName System.Windows.Forms.ComboBox)
+$dbx__FEpool = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $label13 = (New-Object -TypeName System.Windows.Forms.Label)
 $btn_copyrule = (New-Object -TypeName System.Windows.Forms.Button)
 $btn_deleterule = (New-Object -TypeName System.Windows.Forms.Button)
@@ -67,8 +67,8 @@ $btn_newrule = (New-Object -TypeName System.Windows.Forms.Button)
 $lbl_Rulename = (New-Object -TypeName System.Windows.Forms.Label)
 $dbx_LocRule = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $Grp_RuleConfig = (New-Object -TypeName System.Windows.Forms.GroupBox)
-$textBox2 = (New-Object -TypeName System.Windows.Forms.TextBox)
-$textBox1 = (New-Object -TypeName System.Windows.Forms.TextBox)
+$tbx_RemoveMsg = (New-Object -TypeName System.Windows.Forms.TextBox)
+$tbx_AddedMsg = (New-Object -TypeName System.Windows.Forms.TextBox)
 $btn_GenerateRemoveMessage = (New-Object -TypeName System.Windows.Forms.Button)
 $label12 = (New-Object -TypeName System.Windows.Forms.Label)
 $Btn_GenerateAddMessage = (New-Object -TypeName System.Windows.Forms.Button)
@@ -78,23 +78,23 @@ $Btn_DeleteGroup = (New-Object -TypeName System.Windows.Forms.Button)
 $Btn_NewGroup = (New-Object -TypeName System.Windows.Forms.Button)
 $label10 = (New-Object -TypeName System.Windows.Forms.Label)
 $Tbx_RuleName = (New-Object -TypeName System.Windows.Forms.TextBox)
-$comboBox5 = (New-Object -TypeName System.Windows.Forms.ComboBox)
+$dbx_LocLogic = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $label9 = (New-Object -TypeName System.Windows.Forms.Label)
 $Btn_RevertRule = (New-Object -TypeName System.Windows.Forms.Button)
 $label8 = (New-Object -TypeName System.Windows.Forms.Label)
 $label5 = (New-Object -TypeName System.Windows.Forms.Label)
-$comboBox4 = (New-Object -TypeName System.Windows.Forms.ComboBox)
+$Dbx_LocMsgBool = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $label7 = (New-Object -TypeName System.Windows.Forms.Label)
 $label6 = (New-Object -TypeName System.Windows.Forms.Label)
 $label4 = (New-Object -TypeName System.Windows.Forms.Label)
-$comboBox3 = (New-Object -TypeName System.Windows.Forms.ComboBox)
+$dbx_LocAction = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $cbx_ResponseGroupQueues = (New-Object -TypeName System.Windows.Forms.CheckedListBox)
 $label3 = (New-Object -TypeName System.Windows.Forms.Label)
-$comboBox2 = (New-Object -TypeName System.Windows.Forms.ComboBox)
+$dbx_GrpBool = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $cbx_groups = (New-Object -TypeName System.Windows.Forms.CheckedListBox)
 $label2 = (New-Object -TypeName System.Windows.Forms.Label)
 $btn_RuleSave = (New-Object -TypeName System.Windows.Forms.Button)
-$comboBox1 = (New-Object -TypeName System.Windows.Forms.ComboBox)
+$dbx_LocBool = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $cbx_Location = (New-Object -TypeName System.Windows.Forms.CheckedListBox)
 $tabPage2 = (New-Object -TypeName System.Windows.Forms.TabPage)
@@ -129,7 +129,7 @@ $TabControl.TabIndex = [System.Int32]34
 #RulesTab
 #
 $RulesTab.BackColor = [System.Drawing.Color]::White
-$RulesTab.Controls.Add($comboBox6)
+$RulesTab.Controls.Add($dbx__FEpool)
 $RulesTab.Controls.Add($label13)
 $RulesTab.Controls.Add($btn_copyrule)
 $RulesTab.Controls.Add($btn_deleterule)
@@ -144,16 +144,16 @@ $RulesTab.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $RulesTab.TabIndex = [System.Int32]0
 $RulesTab.Text = [string]'Rules and Actions'
 #
-#comboBox6
+#dbx__FEpool
 #
-$comboBox6.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$dbx__FEpool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$comboBox6.FormattingEnabled = $true
-$comboBox6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]153,[System.Int32]10))
-$comboBox6.Name = [string]'comboBox6'
-$comboBox6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]668,[System.Int32]21))
-$comboBox6.TabIndex = [System.Int32]21
-$comboBox6.Text = [string]'aumelsfbfepool01.skype4badmin.com'
+$dbx__FEpool.FormattingEnabled = $true
+$dbx__FEpool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]153,[System.Int32]10))
+$dbx__FEpool.Name = [string]'dbx__FEpool'
+$dbx__FEpool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]668,[System.Int32]21))
+$dbx__FEpool.TabIndex = [System.Int32]21
+$dbx__FEpool.Text = [string]'aumelsfbfepool01.skype4badmin.com'
 #
 #label13
 #
@@ -220,8 +220,8 @@ $dbx_LocRule.Text = [string]'Remove users from Melbourne Reception when on Skype
 #
 #Grp_RuleConfig
 #
-$Grp_RuleConfig.Controls.Add($textBox2)
-$Grp_RuleConfig.Controls.Add($textBox1)
+$Grp_RuleConfig.Controls.Add($tbx_RemoveMsg)
+$Grp_RuleConfig.Controls.Add($tbx_AddedMsg)
 $Grp_RuleConfig.Controls.Add($btn_GenerateRemoveMessage)
 $Grp_RuleConfig.Controls.Add($label12)
 $Grp_RuleConfig.Controls.Add($Btn_GenerateAddMessage)
@@ -231,23 +231,23 @@ $Grp_RuleConfig.Controls.Add($Btn_DeleteGroup)
 $Grp_RuleConfig.Controls.Add($Btn_NewGroup)
 $Grp_RuleConfig.Controls.Add($label10)
 $Grp_RuleConfig.Controls.Add($Tbx_RuleName)
-$Grp_RuleConfig.Controls.Add($comboBox5)
+$Grp_RuleConfig.Controls.Add($dbx_LocLogic)
 $Grp_RuleConfig.Controls.Add($label9)
 $Grp_RuleConfig.Controls.Add($Btn_RevertRule)
 $Grp_RuleConfig.Controls.Add($label8)
 $Grp_RuleConfig.Controls.Add($label5)
-$Grp_RuleConfig.Controls.Add($comboBox4)
+$Grp_RuleConfig.Controls.Add($Dbx_LocMsgBool)
 $Grp_RuleConfig.Controls.Add($label7)
 $Grp_RuleConfig.Controls.Add($label6)
 $Grp_RuleConfig.Controls.Add($label4)
-$Grp_RuleConfig.Controls.Add($comboBox3)
+$Grp_RuleConfig.Controls.Add($dbx_LocAction)
 $Grp_RuleConfig.Controls.Add($cbx_ResponseGroupQueues)
 $Grp_RuleConfig.Controls.Add($label3)
-$Grp_RuleConfig.Controls.Add($comboBox2)
+$Grp_RuleConfig.Controls.Add($dbx_GrpBool)
 $Grp_RuleConfig.Controls.Add($cbx_groups)
 $Grp_RuleConfig.Controls.Add($label2)
 $Grp_RuleConfig.Controls.Add($btn_RuleSave)
-$Grp_RuleConfig.Controls.Add($comboBox1)
+$Grp_RuleConfig.Controls.Add($dbx_LocBool)
 $Grp_RuleConfig.Controls.Add($label1)
 $Grp_RuleConfig.Controls.Add($cbx_Location)
 $Grp_RuleConfig.Enabled = $false
@@ -260,26 +260,26 @@ $Grp_RuleConfig.TabIndex = [System.Int32]14
 $Grp_RuleConfig.TabStop = $false
 $Grp_RuleConfig.Text = [string]'Configure Rules'
 #
-#textBox2
+#tbx_RemoveMsg
 #
-$textBox2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]225,[System.Int32]556))
-$textBox2.Multiline = $true
-$textBox2.Name = [string]'textBox2'
-$textBox2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]75))
-$textBox2.TabIndex = [System.Int32]35
-$textBox2.Text = $resources.GetString([string]'textBox2.Text')
+$tbx_RemoveMsg.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]225,[System.Int32]556))
+$tbx_RemoveMsg.Multiline = $true
+$tbx_RemoveMsg.Name = [string]'tbx_RemoveMsg'
+$tbx_RemoveMsg.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]75))
+$tbx_RemoveMsg.TabIndex = [System.Int32]35
+$tbx_RemoveMsg.Text = $resources.GetString([string]'tbx_RemoveMsg.Text')
 
 #
-#textBox1
+#tbx_AddedMsg
 #
-$textBox1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]225,[System.Int32]461))
-$textBox1.Multiline = $true
-$textBox1.Name = [string]'textBox1'
-$textBox1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]75))
-$textBox1.TabIndex = [System.Int32]34
-$textBox1.Text = $resources.GetString([string]'textBox1.Text')
+$tbx_AddedMsg.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]225,[System.Int32]461))
+$tbx_AddedMsg.Multiline = $true
+$tbx_AddedMsg.Name = [string]'tbx_AddedMsg'
+$tbx_AddedMsg.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]75))
+$tbx_AddedMsg.TabIndex = [System.Int32]34
+$tbx_AddedMsg.Text = $resources.GetString([string]'tbx_AddedMsg.Text')
 
-$textBox1.add_TextChanged($textBox1_TextChanged)
+$tbx_AddedMsg.add_TextChanged($textBox1_TextChanged)
 #
 #btn_GenerateRemoveMessage
 #
@@ -373,17 +373,17 @@ $Tbx_RuleName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $Tbx_RuleName.TabIndex = [System.Int32]21
 $Tbx_RuleName.Text = [string]'Remove users from Melbourne Reception when on Skype4Badmin Wifi'
 #
-#comboBox5
+#dbx_LocLogic
 #
-$comboBox5.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$comboBox5.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$dbx_LocLogic.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$dbx_LocLogic.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$comboBox5.FormattingEnabled = $true
-$comboBox5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]460,[System.Int32]54))
-$comboBox5.Name = [string]'comboBox5'
-$comboBox5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]55,[System.Int32]21))
-$comboBox5.TabIndex = [System.Int32]20
-$comboBox5.Text = [string]'some'
+$dbx_LocLogic.FormattingEnabled = $true
+$dbx_LocLogic.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]460,[System.Int32]54))
+$dbx_LocLogic.Name = [string]'dbx_LocLogic'
+$dbx_LocLogic.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]55,[System.Int32]21))
+$dbx_LocLogic.TabIndex = [System.Int32]20
+$dbx_LocLogic.Text = [string]'some'
 #
 #label9
 #
@@ -424,17 +424,17 @@ $label5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $label5.TabIndex = [System.Int32]15
 $label5.Text = [string]'them.'
 #
-#comboBox4
+#Dbx_LocMsgBool
 #
-$comboBox4.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$comboBox4.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$Dbx_LocMsgBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$Dbx_LocMsgBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$comboBox4.FormattingEnabled = $true
-$comboBox4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]939,[System.Int32]54))
-$comboBox4.Name = [string]'comboBox4'
-$comboBox4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]92,[System.Int32]21))
-$comboBox4.TabIndex = [System.Int32]14
-$comboBox4.Text = [string]'dont message'
+$Dbx_LocMsgBool.FormattingEnabled = $true
+$Dbx_LocMsgBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]939,[System.Int32]54))
+$Dbx_LocMsgBool.Name = [string]'Dbx_LocMsgBool'
+$Dbx_LocMsgBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]92,[System.Int32]21))
+$Dbx_LocMsgBool.TabIndex = [System.Int32]14
+$Dbx_LocMsgBool.Text = [string]'dont message'
 #
 #label7
 #
@@ -465,17 +465,17 @@ $label4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $label4.TabIndex = [System.Int32]13
 $label4.Text = [string]'them from the following response groups and '
 #
-#comboBox3
+#dbx_LocAction
 #
-$comboBox3.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$comboBox3.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$dbx_LocAction.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$dbx_LocAction.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$comboBox3.FormattingEnabled = $true
-$comboBox3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]640,[System.Int32]54))
-$comboBox3.Name = [string]'comboBox3'
-$comboBox3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]67,[System.Int32]21))
-$comboBox3.TabIndex = [System.Int32]12
-$comboBox3.Text = [string]'remove'
+$dbx_LocAction.FormattingEnabled = $true
+$dbx_LocAction.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]640,[System.Int32]54))
+$dbx_LocAction.Name = [string]'dbx_LocAction'
+$dbx_LocAction.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]67,[System.Int32]21))
+$dbx_LocAction.TabIndex = [System.Int32]12
+$dbx_LocAction.Text = [string]'remove'
 #
 #cbx_ResponseGroupQueues
 #
@@ -497,17 +497,17 @@ $label3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $label3.TabIndex = [System.Int32]10
 $label3.Text = [string]'a member of '
 #
-#comboBox2
+#dbx_GrpBool
 #
-$comboBox2.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$comboBox2.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$dbx_GrpBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$dbx_GrpBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$comboBox2.FormattingEnabled = $true
-$comboBox2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]349,[System.Int32]54))
-$comboBox2.Name = [string]'comboBox2'
-$comboBox2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]46,[System.Int32]21))
-$comboBox2.TabIndex = [System.Int32]9
-$comboBox2.Text = [string]'is not'
+$dbx_GrpBool.FormattingEnabled = $true
+$dbx_GrpBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]349,[System.Int32]54))
+$dbx_GrpBool.Name = [string]'dbx_GrpBool'
+$dbx_GrpBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]46,[System.Int32]21))
+$dbx_GrpBool.TabIndex = [System.Int32]9
+$dbx_GrpBool.Text = [string]'is not'
 #
 #cbx_groups
 #
@@ -543,17 +543,17 @@ $btn_RuleSave.TabIndex = [System.Int32]6
 $btn_RuleSave.Text = [string]'Save'
 $btn_RuleSave.UseVisualStyleBackColor = $false
 #
-#comboBox1
+#dbx_LocBool
 #
-$comboBox1.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$comboBox1.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$dbx_LocBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$dbx_LocBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$comboBox1.FormattingEnabled = $true
-$comboBox1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]84,[System.Int32]54))
-$comboBox1.Name = [string]'comboBox1'
-$comboBox1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]56,[System.Int32]21))
-$comboBox1.TabIndex = [System.Int32]5
-$comboBox1.Text = [string]'is not'
+$dbx_LocBool.FormattingEnabled = $true
+$dbx_LocBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]84,[System.Int32]54))
+$dbx_LocBool.Name = [string]'dbx_LocBool'
+$dbx_LocBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]56,[System.Int32]21))
+$dbx_LocBool.TabIndex = [System.Int32]5
+$dbx_LocBool.Text = [string]'is not'
 #
 #label1
 #
@@ -721,7 +721,6 @@ $MainForm.PerformLayout()
 Add-Member -InputObject $MainForm -Name base -Value $base -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name TabControl -Value $TabControl -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name RulesTab -Value $RulesTab -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name comboBox6 -Value $comboBox6 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label13 -Value $label13 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name btn_copyrule -Value $btn_copyrule -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name btn_deleterule -Value $btn_deleterule -MemberType NoteProperty
@@ -738,28 +737,21 @@ Add-Member -InputObject $MainForm -Name Btn_DeleteGroup -Value $Btn_DeleteGroup 
 Add-Member -InputObject $MainForm -Name Btn_NewGroup -Value $Btn_NewGroup -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label10 -Value $label10 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name Tbx_RuleName -Value $Tbx_RuleName -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name comboBox5 -Value $comboBox5 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label9 -Value $label9 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name Btn_RevertRule -Value $Btn_RevertRule -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label8 -Value $label8 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label5 -Value $label5 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name comboBox4 -Value $comboBox4 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label7 -Value $label7 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label6 -Value $label6 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label4 -Value $label4 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name comboBox3 -Value $comboBox3 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name cbx_ResponseGroupQueues -Value $cbx_ResponseGroupQueues -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label3 -Value $label3 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name comboBox2 -Value $comboBox2 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name cbx_groups -Value $cbx_groups -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label2 -Value $label2 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name btn_RuleSave -Value $btn_RuleSave -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name comboBox1 -Value $comboBox1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label1 -Value $label1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name cbx_Location -Value $cbx_Location -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name tabPage2 -Value $tabPage2 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name textBox2 -Value $textBox2 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name textBox1 -Value $textBox1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label15 -Value $label15 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name textBox4 -Value $textBox4 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label14 -Value $label14 -MemberType NoteProperty
@@ -771,6 +763,14 @@ Add-Member -InputObject $MainForm -Name tbx_Autodiscover -Value $tbx_Autodiscove
 Add-Member -InputObject $MainForm -Name statusStrip1 -Value $statusStrip1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name toolStripProgressBar1 -Value $toolStripProgressBar1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name toolStripStatusLabel1 -Value $toolStripStatusLabel1 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name dbx__FEpool -Value $dbx__FEpool -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name tbx_RemoveMsg -Value $tbx_RemoveMsg -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name tbx_AddedMsg -Value $tbx_AddedMsg -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name dbx_LocLogic -Value $dbx_LocLogic -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name Dbx_LocMsgBool -Value $Dbx_LocMsgBool -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name dbx_LocAction -Value $dbx_LocAction -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name dbx_GrpBool -Value $dbx_GrpBool -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name dbx_LocBool -Value $dbx_LocBool -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
