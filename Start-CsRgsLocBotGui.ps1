@@ -1,10 +1,4 @@
-﻿$textBox3_TextChanged = {
-
-}
-
-
-
-<#  
+﻿<#  
 .SYNOPSIS  
 	Todo, build synopsis
 
