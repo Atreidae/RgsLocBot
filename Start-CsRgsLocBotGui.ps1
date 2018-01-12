@@ -27,6 +27,10 @@
 .EXAMPLE Starts the RGSLocBot Configuration Gui
     PS C:\> .\Start-CsRgsLocBotGui.ps1
 
+.PARAMETER ConfigFilePath
+	Specify the location of the RgsLocBotConfig.json file, Defaults to the current directory
+
+
 .INPUT
 Start-CsRgsLocBotGui Does not accept input from the pipeline.
 
@@ -35,14 +39,17 @@ Start-CsRgsLocBotGui Does not output to the pipeline
 
 #>
 
-[CmdletBinding(DefaultParametersetName="Common")]
+#[CmdletBinding(DefaultParametersetName="Common")]
 param(
-	[Parameter(Mandatory=$false)] [switch]$DisableScriptUpdate
+	[Parameter(Mandatory=$false)] [switch]$DisableScriptUpdate,
+	[Parameter(Mandatory=$false, Position=1)] $ConfigFilePath = $null
 	)
 #############################
 # Script Specific Variables #
 #############################
-
+	#Set for internal builds
+	$VerbosePreference = "Continue"
+	
 	$ScriptVersion = 0.2
 	$StartTime = Get-Date
 	Write-Host "Info: Start-CsRGSLocBotGui Version $ScriptVersion started at $StartTime" -ForegroundColor Green
@@ -174,17 +181,15 @@ if ($DisableScriptUpdate -eq $false) {
 	}
 }
 
-#endregion functions
+Function Test-LocBotUpdateFile {
+	 PARAM([String]$Path)
+	Write-Log -component "Test-LocBotUpdateFile" -Message "Test-LocBotUpdateFile called. Not implemented" -severity 3
+	#Todo
+}
 
-
-#region Controls
-
-
-#region Configtab
-
-#AutoDiscover Test Button
-$btn_TestAutodiscover_Click = {
-	$s4bAutodiscover = ($tbx_Autodiscover.text)
+Function Test-CsAutoDiscover {
+	PARAM ([String]$s4bAutoDiscover)
+	
 	 Write-Log -component "Config" -Message "Testing Autodiscover" -severity 2
 	 Write-Log -component "Config" -Message "User defined url is $s4bAutodiscover" -severity 1
 	try{
@@ -202,6 +207,23 @@ $btn_TestAutodiscover_Click = {
 		Write-Log -component "Config" -Message "Setting button red" -severity 1
 		$btn_TestAutodiscover.backcolor = "red"
 	}
+
+}
+
+Function Read-ConfigFile {
+	Write-Log -component "Read-ConfigFile" -Message "Read-ConfigFile called. Not implemented" -severity 3
+}
+#endregion functions
+
+
+#region Controls
+
+
+#region Configtab
+
+#AutoDiscover Test Button
+$btn_TestAutodiscover_Click = {
+	Test-CsAutoDiscover ($tbx_Autodiscover.text)
 }
 
 #AutoDiscover Textbox
@@ -214,22 +236,32 @@ $tbx_Autodiscover_TextChanged = {
 
 #Config Browse Button
 $Btn_ConfigBrowse_Click = {
-Write-Log -component "Config" -Message "Browse Button Pressed" -severity 2
-#	param([object]$sender, [System.EventArgs]$e)
-#	[SaveFileDialog]$ConfigFileSaveDialog = (New-Object -TypeName SaveFileDialog)
-	$ConfigFileSaveDialog.InitialDirectory = ($MyInvocation.MyCommand.Path)
-	$ConfigFileSaveDialog.FileName = "RgsLocBotConfig.json"
-	$ConfigFileSaveDialog.Filter = "Config File|*.json"
-	$ConfigFileSaveDialog.Title = "Save Config File"
-	if ($ConfigFileSaveDialog.ShowDialog() -eq "Ok")
-#	if($dlg.ShowDialog() -eq 'Ok')
-
-#	if ($ConfigFileSaveDialog.filename -ne "")
-	{
-	Write-Log -component "Config" -Message "$ConfigFileSaveDialog" -severity 2
-		[System.IO.FileStream]$fs = [System.IO.FileStream]$saveFileDialog1.OpenFile()
+	Write-Log -component "Config" -Message "Config file Browse button pressed" -severity 1
+	Write-Log -component "Config" -Message "Checking current script path $PSScriptRoot" -severity 1
+	#Setup Dialog Box
+	$ConfigFileBrowserDialog.SelectedPath = $PSScriptRoot
+	$ConfigFileBrowserDialog.Description = "Select Path of Config File, Update-CsRgsLocBotQueues.ps1 should be in the same folder"
+	$ConfigFileBrowserDialog.ShowNewFolderButton = $false
+	#Show the Dialogbox and catch its output
+	if ($ConfigFileBrowserDialog.ShowDialog() -eq "Ok")
+		{
+		#Execute this block if the user presses OK
+		Write-Log -component "Config" -Message "Selected Folder is " + ($ConfigFileBrowserDialog.SelectedPath) -severity 1
+		$Txt_ConfigFileName.text = ($ConfigFileBrowserDialog.SelectedPath + "\RgsLocBotConfig.json")
 		
-		$fs.Close()
+		#Now check that Update-CsRgsLocBotQueues.ps1 is present
+		Write-Log -component "Config" -Message "Checking for Update-CsRgsLocBotQueues.ps1" -severity 2	
+		$ConfigPath = $ConfigFileBrowserDialog.SelectedPath + "\Update-CsRgsLocBotQueues.ps1"
+		Write-Log -component "Config" -Message "Testing Path $ConfigPath" -severity 1
+		If(!(Test-Path $ConfigPath)) {
+			Write-Log -component "Config" -Message "Could not locate Update-CsRgsLocBotQueues.ps1 in the specified folder, Display Warning" -severity 3
+			$lbl_PathWarning.visible = $true
+			}
+			Else {
+			Write-Log -component "Config" -Message "Found Update-CsRgsLocBotQueues.ps1 in the specified folder, Hiding warning" -severity 1
+			$lbl_PathWarning.visible = $false
+				}
+	
 	}
 
 
@@ -244,9 +276,34 @@ Write-Log -component "Config" -Message "Browse Button Pressed" -severity 2
 #endregion Controls
 
 
-
+#Imports all the GUI items
 . (Join-Path $PSScriptRoot 'Start-CsRgsLocBotGui.designer.ps1')
 
+#region MainScript
 #
 
+#Clean up controls and items before loading the GUI
+Write-Log -component "Script Block" -Message "Cleaning up form items" -severity 1
+Write-Log -component "Script Block" -Message "Script executed from $PSScriptRoot" -severity 1
+if ($ConfigFilePath -eq $null)
+	{
+		Write-Log -component "Script Block" -Message "No Config File Path Specified, Assuming current folder" -severity 1
+		$ConfigFilePath = ("$PSScriptRoot" + "\RgsLocBotConfig.json")
+	}
+
+#Check for and load the config file if present
+If(!(Test-Path $ConfigFilePath)) {
+			Write-Log -component "Config" -Message "Could not locate $ConfigFilePath in the specified folder, Using Defaults" -severity 3
+			}
+			Else {
+			Write-Log -component "Config" -Message "Found $ConfigFilePathin the specified folder, loading" -severity 1
+			
+				}
+
+
+$Txt_ConfigFileName.text = $ConfigFilePath
+
+Write-Log -component "Config" -Message "Showing Form" -severity 2
 $MainForm.ShowDialog()
+
+#endregion MainScript

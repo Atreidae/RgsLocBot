@@ -66,11 +66,13 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$btn_TestDomain = $null
 [System.Windows.Forms.Button]$button4 = $null
 [System.Windows.Forms.Button]$button2 = $null
-[System.Windows.Forms.TextBox]$textBox1 = $null
 [System.Windows.Forms.Label]$label25 = $null
 [System.Windows.Forms.Label]$label26 = $null
 [System.Windows.Forms.SaveFileDialog]$ConfigFileSaveDialog = $null
 [System.Windows.Forms.Button]$Btn_ConfigBrowse = $null
+[System.Windows.Forms.TextBox]$Txt_ConfigFileName = $null
+[System.Windows.Forms.FolderBrowserDialog]$ConfigFileBrowserDialog = $null
+[System.Windows.Forms.Label]$lbl_PathWarning = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -116,10 +118,11 @@ $dbx_LocBool = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $cbx_Location = (New-Object -TypeName System.Windows.Forms.CheckedListBox)
 $tabPage2 = (New-Object -TypeName System.Windows.Forms.TabPage)
+$lbl_PathWarning = (New-Object -TypeName System.Windows.Forms.Label)
 $button4 = (New-Object -TypeName System.Windows.Forms.Button)
 $Btn_ConfigBrowse = (New-Object -TypeName System.Windows.Forms.Button)
 $button2 = (New-Object -TypeName System.Windows.Forms.Button)
-$textBox1 = (New-Object -TypeName System.Windows.Forms.TextBox)
+$Txt_ConfigFileName = (New-Object -TypeName System.Windows.Forms.TextBox)
 $label25 = (New-Object -TypeName System.Windows.Forms.Label)
 $label26 = (New-Object -TypeName System.Windows.Forms.Label)
 $label24 = (New-Object -TypeName System.Windows.Forms.Label)
@@ -145,6 +148,7 @@ $btn_TestUserPass = (New-Object -TypeName System.Windows.Forms.Button)
 $statusStrip1 = (New-Object -TypeName System.Windows.Forms.StatusStrip)
 $toolStripStatusLabel1 = (New-Object -TypeName System.Windows.Forms.ToolStripStatusLabel)
 $ConfigFileSaveDialog = (New-Object -TypeName System.Windows.Forms.SaveFileDialog)
+$ConfigFileBrowserDialog = (New-Object -TypeName System.Windows.Forms.FolderBrowserDialog)
 $TabControl.SuspendLayout()
 $RulesTab.SuspendLayout()
 $Grp_RuleConfig.SuspendLayout()
@@ -613,10 +617,11 @@ $cbx_Location.TabIndex = [System.Int32]1
 #tabPage2
 #
 $tabPage2.BackColor = [System.Drawing.Color]::White
+$tabPage2.Controls.Add($lbl_PathWarning)
 $tabPage2.Controls.Add($button4)
 $tabPage2.Controls.Add($Btn_ConfigBrowse)
 $tabPage2.Controls.Add($button2)
-$tabPage2.Controls.Add($textBox1)
+$tabPage2.Controls.Add($Txt_ConfigFileName)
 $tabPage2.Controls.Add($label25)
 $tabPage2.Controls.Add($label26)
 $tabPage2.Controls.Add($label24)
@@ -645,6 +650,18 @@ $tabPage2.Padding = (New-Object -TypeName System.Windows.Forms.Padding -Argument
 $tabPage2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1118,[System.Int32]752))
 $tabPage2.TabIndex = [System.Int32]1
 $tabPage2.Text = [string]'Configuration'
+#
+#lbl_PathWarning
+#
+$lbl_PathWarning.AutoSize = $true
+$lbl_PathWarning.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$lbl_PathWarning.ForeColor = [System.Drawing.Color]::Red
+$lbl_PathWarning.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]157,[System.Int32]530))
+$lbl_PathWarning.Name = [string]'lbl_PathWarning'
+$lbl_PathWarning.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]592,[System.Int32]13))
+$lbl_PathWarning.TabIndex = [System.Int32]51
+$lbl_PathWarning.Text = [string]'Warning: Update-CsRgsLocBotQueues.ps1 not found in this folder. Changes saved here may not apply!'
+$lbl_PathWarning.Visible = $false
 #
 #button4
 #
@@ -683,15 +700,15 @@ $button2.TabIndex = [System.Int32]48
 $button2.Text = [string]'Load'
 $button2.UseVisualStyleBackColor = $false
 #
-#textBox1
+#Txt_ConfigFileName
 #
-$textBox1.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$Txt_ConfigFileName.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$textBox1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]126,[System.Int32]507))
-$textBox1.Name = [string]'textBox1'
-$textBox1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]650,[System.Int32]20))
-$textBox1.TabIndex = [System.Int32]47
-$textBox1.Text = [string]'Skype4bAdmin.local'
+$Txt_ConfigFileName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]126,[System.Int32]507))
+$Txt_ConfigFileName.Name = [string]'Txt_ConfigFileName'
+$Txt_ConfigFileName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]650,[System.Int32]20))
+$Txt_ConfigFileName.TabIndex = [System.Int32]47
+$Txt_ConfigFileName.Text = [string]'($MyInvocation.MyCommand.Path)'
 #
 #label25
 #
@@ -926,6 +943,11 @@ $toolStripStatusLabel1.Size = (New-Object -TypeName System.Drawing.Size -Argumen
 $toolStripStatusLabel1.Text = [string]'toolStripStatusLabel1'
 $toolStripStatusLabel1.add_Click($toolStripStatusLabel1_Click)
 #
+#ConfigFileSaveDialog
+#
+$ConfigFileSaveDialog.DefaultExt = [string]'json'
+$ConfigFileSaveDialog.RestoreDirectory = $true
+#
 #MainForm
 #
 $MainForm.BackColor = [System.Drawing.Color]::White
@@ -1011,11 +1033,13 @@ Add-Member -InputObject $MainForm -Name txt_DomainFQDN -Value $txt_DomainFQDN -M
 Add-Member -InputObject $MainForm -Name btn_TestDomain -Value $btn_TestDomain -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name button4 -Value $button4 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name button2 -Value $button2 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name textBox1 -Value $textBox1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label25 -Value $label25 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label26 -Value $label26 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name ConfigFileSaveDialog -Value $ConfigFileSaveDialog -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name Btn_ConfigBrowse -Value $Btn_ConfigBrowse -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name Txt_ConfigFileName -Value $Txt_ConfigFileName -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name ConfigFileBrowserDialog -Value $ConfigFileBrowserDialog -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name lbl_PathWarning -Value $lbl_PathWarning -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

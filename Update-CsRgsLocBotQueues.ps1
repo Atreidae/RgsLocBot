@@ -104,6 +104,29 @@ function Connect-CsUCWAAPI{
 
 #endregion Functions
 
+	#Import the Skype for Business / Lync Modules and error if not found
+	Write-Log -component "Script Block" -Message "Checking for Lync/Skype management tools"
+	$ManagementTools = $false
+	if(!(Get-Module "SkypeForBusiness")) {Import-Module SkypeForBusiness -Verbose:$false}
+	if(!(Get-Module "Lync")) {Import-Module Lync -Verbose:$false}
+	if(Get-Module "SkypeForBusiness") {$ManagementTools = $true}
+	if(Get-Module "Lync") {$ManagementTools = $true}
+	if(!$ManagementTools) {
+		Write-Log 
+		Write-Log -component "Script Block" -Message "Could not locate Lync/Skype4B Management tools. Script Exiting" -severity 5 
+		$AllGood=$false
+		Throw "Unable to load Skype4B/Lync management tools"
+		}
+	
+	#Check for the AD Management Tools
+	$ADManagementTools = $false
+	if(!(Get-Module "ActiveDirectory")) {Import-Module ActiveDirectory -Verbose:$false}
+	if(Get-Module "ActiveDirectory") {$ADManagementTools = $true}
+	if(!$ADManagementTools) {
+		Write-Log 
+		Write-Log -component "Script Block" -Message "Could not locate ActiveDirectory Management tools. Script Exiting" -severity 5 
+		Throw "Unable to load ActiveDirectory Powershell Module"
+		}
 
  
 
