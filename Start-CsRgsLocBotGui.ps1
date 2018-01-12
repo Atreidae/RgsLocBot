@@ -234,7 +234,41 @@ Write-Log -component "Test-CsManagementTools" -Message "Checking for Lync/Skype 
 }
 
 Function Read-ConfigFile {
-	Write-Log -component "Read-ConfigFile" -Message "Read-ConfigFile called. Not implemented" -severity 3
+	Write-Log -component "Read-ConfigFile" -Message "Writing Config file" -severity 2
+    If(!(Test-Path $Script:ConfigPath)) {
+			Write-Log -component "Config" -Message "Could not locate config file!" -severity 5
+			Throw "No Config File!"
+			}
+			Else {
+			Write-Log -component "Config" -Message "Found Config file in the specified folder" -severity 1
+				}
+
+	Write-Log -component "Read-ConfigFile" -Message "Pulling JSON File" -severity 1
+    Try{
+	$Script:Config = (ConvertFrom-Json (Get-Content -raw $Script:ConfigPath))
+	Write-Log -component "Read-ConfigFile" -Message "Config File Read" -severity 2
+		}
+	Catch {
+	Write-Log -component "Read-ConfigFile" -Message "Error reading Config file" -severity 3
+		}
+
+	Write-Log -component "Read-ConfigFile" -Message "Decrpyting Bot Password" -severity 2
+	$SecurePassword = (ConvertTo-SecureString -string $Script:Config.BotPassword  -key $Script:Config.AESKey)
+    $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecurePassword)
+    $Txt_BotPassword.text = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+    Write-Log -component "Read-ConfigFile" -Message "Importing Objects" -severity 1
+    #Config Page
+	$Txt_BotSipAddr.Text = $Script:Config.BotAddress
+	$tbx_Autodiscover.text = $Script:Config.AutoDiscover
+	$txt_DomainFQDN.text = $Script:Config.DomainFQDN
+	$mtxt_MinUpdate.text = $Script:Config.MinUpdate
+	$mtxt_MaxChanges.text = $Script:Config.MaxChanges
+    
+    #Main Page
+    $dbx_FePool.text = $Script:Config.SelectedFePool
+    $dbx_LocRule.text = $Script:Config.SelectedRule
+
+
 }
 
 Function Write-ConfigFile {
@@ -247,11 +281,16 @@ Function Write-ConfigFile {
 	$SecurePassword = (ConvertTo-SecureString -string $Txt_BotPassword.text -asplaintext -force)
 	$Script:Config.BotPassword = (ConvertFrom-SecureString -securestring $SecurePassword -key $Script:Config.AESKey)
 	Write-Log -component "Write-ConfigFile" -Message "Importing Objects" -severity 1
+    #Config Page
 	$Script:Config.BotAddress = $Txt_BotSipAddr.Text 
 	$Script:Config.AutoDiscover = $tbx_Autodiscover.text
 	$Script:Config.DomainFQDN = $txt_DomainFQDN.text
 	$Script:Config.MinUpdate = $mtxt_MinUpdate.text
 	$Script:Config.MaxChanges = $mtxt_MaxChanges.text
+    
+    #Main Page
+    $Script:Config.SelectedFePool = $dbx_FePool.text
+    $Script:Config.SelectedRule = $dbx_LocRule.text
 
 
 	Try{
@@ -268,21 +307,13 @@ Function Write-ConfigFile {
 
 Function Load-DefaultConfig {
 	
-	If (!$Script:Config) 
-		{$Script:Config=@{}
+
+		$Script:Config=@{}
 			$Script:Config.ConfigFileVersion = 0.2
 			$Script:Config.Description = "CsRgsLocBot Configuration file. See Skype4BAdmin.com for more information"
 			$Script:Config.Warning = "whilst passwords are encrpyted in this file, the Keys are also stored here! Please dont treat it as secure"
 			$Script:Config.SelectedFePool = "---None Selected---"
-			$Script:Config.SelectedRule = "---None Selected---"
-
-
-
-		}
-	Else {Write-Log -component "Load-DefaultConfig" -Message "Load-DefaultConfig Called but `$Config not Null" -severity 3 
-			$Script:config | gm}
-		
-		
+			$Script:Config.SelectedRule = "---None Selected---"	
 }
 
 Function Get-CSInfrastructure(){
@@ -398,6 +429,9 @@ if ($ConfigFilePath -eq $null)
 		Write-Log -component "Script Block" -Message "No Config File Path Specified, Assuming current folder" -severity 1
 		$ConfigFilePath = ("$PSScriptRoot" + "\RgsLocBotConfig.json")
 	}
+#Set Global Filepath 
+$Txt_ConfigFileName.text = $ConfigFilePath
+$Script:ConfigPath = $ConfigFilePath
 
 #Check for and load the config file if present
 If(!(Test-Path $ConfigFilePath)) {
@@ -407,12 +441,11 @@ If(!(Test-Path $ConfigFilePath)) {
 			}
 			Else {
 			Write-Log -component "Config" -Message "Found $ConfigFilePath in the specified folder, loading" -severity 1
-			#Todo Loadconfig File
+            $Script:Config=@{}
+			Read-ConfigFile
 				}
 
-#Set Global Filepath 
-$Txt_ConfigFileName.text = $ConfigFilePath
-$Script:ConfigPath = $ConfigFilePath
+
 
 
 #Display the form
