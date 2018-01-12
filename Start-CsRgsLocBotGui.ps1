@@ -1,11 +1,17 @@
-﻿<#  
+﻿$textBox3_TextChanged = {
+
+}
+
+
+
+<#  
 .SYNOPSIS  
 	Todo, build synopsis
 
 
 .DESCRIPTION  
 	Created by James Arber. www.skype4badmin.com
-	Built with PoshTools www.poshtools.com
+	Built with PoshTools Pro www.poshtools.com
     
 	
 .NOTES  
@@ -238,21 +244,49 @@ Function Read-ConfigFile {
 }
 
 Function Write-ConfigFile {
-	Write-Log -component "Write-ConfigFile" -Message "Write-ConfigFile called. Not implemented" -severity 3
+	Write-Log -component "Write-ConfigFile" -Message "Writing Config file" -severity 2
+	Write-Log -component "Write-ConfigFile" -Message "Generating AES Key" -severity 1
+	# Generate a random AES Encryption Key.
+	$Script:Config.AESKey = New-Object Byte[] 32
+	[Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Script:Config.AESKey)
+	Write-Log -component "Write-ConfigFile" -Message "Encrpyting Bot Password" -severity 2
+	$SecurePassword = (ConvertTo-SecureString -string $Txt_BotPassword.text -asplaintext -force)
+	$Script:Config.BotPassword = (ConvertFrom-SecureString -securestring $SecurePassword -key $Script:Config.AESKey)
+	Write-Log -component "Write-ConfigFile" -Message "Importing Objects" -severity 1
+	$Script:Config.BotAddress = $Txt_BotSipAddr.Text 
+	$Script:Config.AutoDiscover = $tbx_Autodiscover.text
+	$Script:Config.DomainFQDN = $txt_DomainFQDN.text
+	$Script:Config.MinUpdate = $mtxt_MinUpdate.text
+	$Script:Config.MaxChanges = $mtxt_MaxChanges.text
 
-	If (ProgressReport -eq $null) {$Global:ProgressReport=  @()}
-	 $ThisReport | add-member NoteProperty "Username" -value $CsUsername
+
+	Try{
+	(ConvertTo-Json $Script:Config) | Out-File -FilePath $Script:ConfigPath -Encoding default
+	Write-Log -component "Write-ConfigFile" -Message "Config File Saved" -severity 2
+		}
+	Catch {
+	Write-Log -component "Write-ConfigFile" -Message "Error writing Config file" -severity 3
+		}
+
+
+
 }
 
 Function Load-DefaultConfig {
 	
-	If (!$Config) 
-		{$Config=@{}
-			$Config.ConfigFileVersion = 0.2
+	If (!$Script:Config) 
+		{$Script:Config=@{}
+			$Script:Config.ConfigFileVersion = 0.2
+			$Script:Config.Description = "CsRgsLocBot Configuration file. See Skype4BAdmin.com for more information"
+			$Script:Config.Warning = "whilst passwords are encrpyted in this file, the Keys are also stored here! Please dont treat it as secure"
+			$Script:Config.SelectedFePool = "---None Selected---"
+			$Script:Config.SelectedRule = "---None Selected---"
+
+
 
 		}
 	Else {Write-Log -component "Load-DefaultConfig" -Message "Load-DefaultConfig Called but `$Config not Null" -severity 3 
-			$config}
+			$Script:config | gm}
 		
 		
 }
@@ -294,9 +328,9 @@ $Btn_ConfigBrowse_Click = {
 		
 		#Now check that Update-CsRgsLocBotQueues.ps1 is present
 		Write-Log -component "Config" -Message "Checking for Update-CsRgsLocBotQueues.ps1" -severity 2	
-		$ConfigPath = $ConfigFileBrowserDialog.SelectedPath + "\Update-CsRgsLocBotQueues.ps1"
+		$Script:ConfigPath = $ConfigFileBrowserDialog.SelectedPath + "\Update-CsRgsLocBotQueues.ps1"
 		Write-Log -component "Config" -Message "Testing Path $ConfigPath" -severity 1
-		If(!(Test-Path $ConfigPath)) {
+		If(!(Test-Path $Script:ConfigPath)) {
 			Write-Log -component "Config" -Message "Could not locate Update-CsRgsLocBotQueues.ps1 in the specified folder, Display Warning" -severity 3
 			$lbl_PathWarning.visible = $true
 			}
@@ -309,6 +343,11 @@ $Btn_ConfigBrowse_Click = {
 
 
 
+}
+
+#Config Save Button
+$btn_SaveConfig_Click = {
+Write-ConfigFile
 }
 
 
@@ -364,7 +403,7 @@ If(!(Test-Path $ConfigFilePath)) {
 
 
 $Txt_ConfigFileName.text = $ConfigFilePath
-
+$Script:ConfigPath = $ConfigFilePath
 Write-Log -component "Config" -Message "Showing Form" -severity 2
 $MainForm.ShowDialog()
 

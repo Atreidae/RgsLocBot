@@ -35,9 +35,7 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.CheckedListBox]$cbx_Location = $null
 [System.Windows.Forms.TabPage]$tabPage2 = $null
 [System.Windows.Forms.Label]$label15 = $null
-[System.Windows.Forms.TextBox]$textBox4 = $null
 [System.Windows.Forms.Label]$label14 = $null
-[System.Windows.Forms.TextBox]$textBox3 = $null
 [System.Windows.Forms.Button]$btn_TestAutodiscover = $null
 [System.Windows.Forms.Label]$label16 = $null
 [System.Windows.Forms.Button]$btn_TestUserPass = $null
@@ -56,15 +54,11 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$label18 = $null
 [System.Windows.Forms.Label]$label24 = $null
 [System.Windows.Forms.Label]$label23 = $null
-[System.Windows.Forms.DomainUpDown]$domainUpDown2 = $null
-[System.Windows.Forms.DomainUpDown]$domainUpDown1 = $null
 [System.Windows.Forms.Label]$label22 = $null
 [System.Windows.Forms.Label]$label20 = $null
 [System.Windows.Forms.Label]$label21 = $null
 [System.Windows.Forms.TextBox]$txt_DomainFQDN = $null
 [System.Windows.Forms.Button]$btn_TestDomain = $null
-[System.Windows.Forms.Button]$button4 = $null
-[System.Windows.Forms.Button]$button2 = $null
 [System.Windows.Forms.Label]$label25 = $null
 [System.Windows.Forms.Label]$label26 = $null
 [System.Windows.Forms.Button]$Btn_ConfigBrowse = $null
@@ -72,6 +66,15 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.FolderBrowserDialog]$ConfigFileBrowserDialog = $null
 [System.Windows.Forms.Label]$lbl_PathWarning = $null
 [System.Windows.Forms.ComboBox]$dbx_MemBool = $null
+[System.Windows.Forms.ToolStripStatusLabel]$toolStripStatusLabel2 = $null
+[System.Windows.Forms.Button]$btn_SaveConfig = $null
+[System.Windows.Forms.Button]$Btn_LoadConfig = $null
+[System.Windows.Forms.TextBox]$Txt_BotSipAddr = $null
+[System.Windows.Forms.TextBox]$Txt_BotPassword = $null
+[System.Windows.Forms.Label]$label28 = $null
+[System.Windows.Forms.Label]$label27 = $null
+[System.Windows.Forms.MaskedTextBox]$mtxt_MaxChanges = $null
+[System.Windows.Forms.MaskedTextBox]$mtxt_MinUpdate = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -118,16 +121,14 @@ $label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $cbx_Location = (New-Object -TypeName System.Windows.Forms.CheckedListBox)
 $tabPage2 = (New-Object -TypeName System.Windows.Forms.TabPage)
 $lbl_PathWarning = (New-Object -TypeName System.Windows.Forms.Label)
-$button4 = (New-Object -TypeName System.Windows.Forms.Button)
+$btn_SaveConfig = (New-Object -TypeName System.Windows.Forms.Button)
 $Btn_ConfigBrowse = (New-Object -TypeName System.Windows.Forms.Button)
-$button2 = (New-Object -TypeName System.Windows.Forms.Button)
+$Btn_LoadConfig = (New-Object -TypeName System.Windows.Forms.Button)
 $Txt_ConfigFileName = (New-Object -TypeName System.Windows.Forms.TextBox)
 $label25 = (New-Object -TypeName System.Windows.Forms.Label)
 $label26 = (New-Object -TypeName System.Windows.Forms.Label)
 $label24 = (New-Object -TypeName System.Windows.Forms.Label)
 $label23 = (New-Object -TypeName System.Windows.Forms.Label)
-$domainUpDown2 = (New-Object -TypeName System.Windows.Forms.DomainUpDown)
-$domainUpDown1 = (New-Object -TypeName System.Windows.Forms.DomainUpDown)
 $label22 = (New-Object -TypeName System.Windows.Forms.Label)
 $label20 = (New-Object -TypeName System.Windows.Forms.Label)
 $label21 = (New-Object -TypeName System.Windows.Forms.Label)
@@ -140,13 +141,18 @@ $btn_TestAutodiscover = (New-Object -TypeName System.Windows.Forms.Button)
 $tbx_Autodiscover = (New-Object -TypeName System.Windows.Forms.TextBox)
 $label16 = (New-Object -TypeName System.Windows.Forms.Label)
 $label15 = (New-Object -TypeName System.Windows.Forms.Label)
-$textBox4 = (New-Object -TypeName System.Windows.Forms.TextBox)
+$Txt_BotPassword = (New-Object -TypeName System.Windows.Forms.TextBox)
 $label14 = (New-Object -TypeName System.Windows.Forms.Label)
-$textBox3 = (New-Object -TypeName System.Windows.Forms.TextBox)
+$Txt_BotSipAddr = (New-Object -TypeName System.Windows.Forms.TextBox)
 $btn_TestUserPass = (New-Object -TypeName System.Windows.Forms.Button)
 $statusStrip1 = (New-Object -TypeName System.Windows.Forms.StatusStrip)
 $toolStripStatusLabel1 = (New-Object -TypeName System.Windows.Forms.ToolStripStatusLabel)
 $ConfigFileBrowserDialog = (New-Object -TypeName System.Windows.Forms.FolderBrowserDialog)
+$toolStripStatusLabel2 = (New-Object -TypeName System.Windows.Forms.ToolStripStatusLabel)
+$label27 = (New-Object -TypeName System.Windows.Forms.Label)
+$label28 = (New-Object -TypeName System.Windows.Forms.Label)
+$mtxt_MinUpdate = (New-Object -TypeName System.Windows.Forms.MaskedTextBox)
+$mtxt_MaxChanges = (New-Object -TypeName System.Windows.Forms.MaskedTextBox)
 $TabControl.SuspendLayout()
 $RulesTab.SuspendLayout()
 $Grp_RuleConfig.SuspendLayout()
@@ -415,7 +421,6 @@ $dbx_MemBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $dbx_MemBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $dbx_MemBool.FormattingEnabled = $true
-$dbx_MemBool.Items.AddRange([System.Object[]]@([string]'some',[string]'all'))
 $dbx_MemBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]462,[System.Int32]54))
 $dbx_MemBool.Name = [string]'dbx_MemBool'
 $dbx_MemBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]55,[System.Int32]21))
@@ -467,7 +472,6 @@ $Dbx_LocMsgBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $Dbx_LocMsgBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $Dbx_LocMsgBool.FormattingEnabled = $true
-$Dbx_LocMsgBool.Items.AddRange([System.Object[]]@([string]'dont message',[string]'message'))
 $Dbx_LocMsgBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]939,[System.Int32]54))
 $Dbx_LocMsgBool.Name = [string]'Dbx_LocMsgBool'
 $Dbx_LocMsgBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]92,[System.Int32]21))
@@ -509,7 +513,6 @@ $dbx_LocAction.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $dbx_LocAction.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $dbx_LocAction.FormattingEnabled = $true
-$dbx_LocAction.Items.AddRange([System.Object[]]@([string]'remove',[string]'add'))
 $dbx_LocAction.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]640,[System.Int32]54))
 $dbx_LocAction.Name = [string]'dbx_LocAction'
 $dbx_LocAction.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]67,[System.Int32]21))
@@ -542,7 +545,6 @@ $dbx_GrpBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $dbx_GrpBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $dbx_GrpBool.FormattingEnabled = $true
-$dbx_GrpBool.Items.AddRange([System.Object[]]@([string]'is not',[string]'is'))
 $dbx_GrpBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]349,[System.Int32]54))
 $dbx_GrpBool.Name = [string]'dbx_GrpBool'
 $dbx_GrpBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]46,[System.Int32]21))
@@ -589,7 +591,6 @@ $dbx_LocBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $dbx_LocBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $dbx_LocBool.FormattingEnabled = $true
-$dbx_LocBool.Items.AddRange([System.Object[]]@([string]'is not',[string]'is'))
 $dbx_LocBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]84,[System.Int32]54))
 $dbx_LocBool.Name = [string]'dbx_LocBool'
 $dbx_LocBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]56,[System.Int32]21))
@@ -619,17 +620,19 @@ $cbx_Location.TabIndex = [System.Int32]1
 #tabPage2
 #
 $tabPage2.BackColor = [System.Drawing.Color]::White
+$tabPage2.Controls.Add($mtxt_MaxChanges)
+$tabPage2.Controls.Add($mtxt_MinUpdate)
+$tabPage2.Controls.Add($label28)
+$tabPage2.Controls.Add($label27)
 $tabPage2.Controls.Add($lbl_PathWarning)
-$tabPage2.Controls.Add($button4)
+$tabPage2.Controls.Add($btn_SaveConfig)
 $tabPage2.Controls.Add($Btn_ConfigBrowse)
-$tabPage2.Controls.Add($button2)
+$tabPage2.Controls.Add($Btn_LoadConfig)
 $tabPage2.Controls.Add($Txt_ConfigFileName)
 $tabPage2.Controls.Add($label25)
 $tabPage2.Controls.Add($label26)
 $tabPage2.Controls.Add($label24)
 $tabPage2.Controls.Add($label23)
-$tabPage2.Controls.Add($domainUpDown2)
-$tabPage2.Controls.Add($domainUpDown1)
 $tabPage2.Controls.Add($label22)
 $tabPage2.Controls.Add($label20)
 $tabPage2.Controls.Add($label21)
@@ -642,9 +645,9 @@ $tabPage2.Controls.Add($btn_TestAutodiscover)
 $tabPage2.Controls.Add($tbx_Autodiscover)
 $tabPage2.Controls.Add($label16)
 $tabPage2.Controls.Add($label15)
-$tabPage2.Controls.Add($textBox4)
+$tabPage2.Controls.Add($Txt_BotPassword)
 $tabPage2.Controls.Add($label14)
-$tabPage2.Controls.Add($textBox3)
+$tabPage2.Controls.Add($Txt_BotSipAddr)
 $tabPage2.Controls.Add($btn_TestUserPass)
 $tabPage2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]4,[System.Int32]22))
 $tabPage2.Name = [string]'tabPage2'
@@ -665,17 +668,18 @@ $lbl_PathWarning.TabIndex = [System.Int32]51
 $lbl_PathWarning.Text = [string]'Warning: Update-CsRgsLocBotQueues.ps1 not found in this folder. Changes saved here may not apply!'
 $lbl_PathWarning.Visible = $false
 #
-#button4
+#btn_SaveConfig
 #
-$button4.BackColor = [System.Drawing.Color]::White
-$button4.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$button4.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$button4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]867,[System.Int32]504))
-$button4.Name = [string]'button4'
-$button4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
-$button4.TabIndex = [System.Int32]50
-$button4.Text = [string]'Save'
-$button4.UseVisualStyleBackColor = $false
+$btn_SaveConfig.BackColor = [System.Drawing.Color]::White
+$btn_SaveConfig.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$btn_SaveConfig.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$btn_SaveConfig.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]867,[System.Int32]504))
+$btn_SaveConfig.Name = [string]'btn_SaveConfig'
+$btn_SaveConfig.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$btn_SaveConfig.TabIndex = [System.Int32]50
+$btn_SaveConfig.Text = [string]'Save'
+$btn_SaveConfig.UseVisualStyleBackColor = $false
+$btn_SaveConfig.add_Click($btn_SaveConfig_Click)
 #
 #Btn_ConfigBrowse
 #
@@ -690,17 +694,17 @@ $Btn_ConfigBrowse.Text = [string]'Browse...'
 $Btn_ConfigBrowse.UseVisualStyleBackColor = $false
 $Btn_ConfigBrowse.add_Click($Btn_ConfigBrowse_Click)
 #
-#button2
+#Btn_LoadConfig
 #
-$button2.BackColor = [System.Drawing.Color]::White
-$button2.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$button2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$button2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]786,[System.Int32]505))
-$button2.Name = [string]'button2'
-$button2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
-$button2.TabIndex = [System.Int32]48
-$button2.Text = [string]'Load'
-$button2.UseVisualStyleBackColor = $false
+$Btn_LoadConfig.BackColor = [System.Drawing.Color]::White
+$Btn_LoadConfig.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$Btn_LoadConfig.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$Btn_LoadConfig.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]786,[System.Int32]504))
+$Btn_LoadConfig.Name = [string]'Btn_LoadConfig'
+$Btn_LoadConfig.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$Btn_LoadConfig.TabIndex = [System.Int32]48
+$Btn_LoadConfig.Text = [string]'Load'
+$Btn_LoadConfig.UseVisualStyleBackColor = $false
 #
 #Txt_ConfigFileName
 #
@@ -748,22 +752,6 @@ $label23.Name = [string]'label23'
 $label23.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]786,[System.Int32]13))
 $label23.TabIndex = [System.Int32]43
 $label23.Text = [string]'If the Update-CsRgsLocBotQueues.ps1 scheduled task is run more often than this. The script wil exit without making changes. This prevents excessive backend load'
-#
-#domainUpDown2
-#
-$domainUpDown2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]142,[System.Int32]359))
-$domainUpDown2.Name = [string]'domainUpDown2'
-$domainUpDown2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]120,[System.Int32]20))
-$domainUpDown2.TabIndex = [System.Int32]42
-$domainUpDown2.Text = [string]'domainUpDown2'
-#
-#domainUpDown1
-#
-$domainUpDown1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]142,[System.Int32]386))
-$domainUpDown1.Name = [string]'domainUpDown1'
-$domainUpDown1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]120,[System.Int32]20))
-$domainUpDown1.TabIndex = [System.Int32]41
-$domainUpDown1.Text = [string]'domainUpDown1'
 #
 #label22
 #
@@ -888,15 +876,15 @@ $label15.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syste
 $label15.TabIndex = [System.Int32]27
 $label15.Text = [string]'Bot SIP Password'
 #
-#textBox4
+#Txt_BotPassword
 #
-$textBox4.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$Txt_BotPassword.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$textBox4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]126,[System.Int32]109))
-$textBox4.Name = [string]'textBox4'
-$textBox4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]20))
-$textBox4.TabIndex = [System.Int32]26
-$textBox4.Text = [string]'aninsecurepassword'
+$Txt_BotPassword.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]126,[System.Int32]109))
+$Txt_BotPassword.Name = [string]'Txt_BotPassword'
+$Txt_BotPassword.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]20))
+$Txt_BotPassword.TabIndex = [System.Int32]26
+$Txt_BotPassword.Text = [string]'aninsecurepassword'
 #
 #label14
 #
@@ -908,15 +896,16 @@ $label14.TabIndex = [System.Int32]25
 $label14.Text = [string]'Bot SIP Address'
 $label14.add_Click($label14_Click)
 #
-#textBox3
+#Txt_BotSipAddr
 #
-$textBox3.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$Txt_BotSipAddr.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$textBox3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]126,[System.Int32]83))
-$textBox3.Name = [string]'textBox3'
-$textBox3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]20))
-$textBox3.TabIndex = [System.Int32]24
-$textBox3.Text = [string]'RGSLocBot@Skype4bAdmin.com'
+$Txt_BotSipAddr.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]126,[System.Int32]83))
+$Txt_BotSipAddr.Name = [string]'Txt_BotSipAddr'
+$Txt_BotSipAddr.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]20))
+$Txt_BotSipAddr.TabIndex = [System.Int32]24
+$Txt_BotSipAddr.Text = [string]'RGSLocBot@Skype4bAdmin.com'
+$Txt_BotSipAddr.add_TextChanged($textBox3_TextChanged)
 #
 #btn_TestUserPass
 #
@@ -932,6 +921,7 @@ $btn_TestUserPass.UseVisualStyleBackColor = $false
 #
 #statusStrip1
 #
+$statusStrip1.ImeMode = [System.Windows.Forms.ImeMode]::NoControl
 $statusStrip1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]807))
 $statusStrip1.Name = [string]'statusStrip1'
 $statusStrip1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1148,[System.Int32]22))
@@ -944,6 +934,57 @@ $toolStripStatusLabel1.Name = [string]'toolStripStatusLabel1'
 $toolStripStatusLabel1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]118,[System.Int32]17))
 $toolStripStatusLabel1.Text = [string]'toolStripStatusLabel1'
 $toolStripStatusLabel1.add_Click($toolStripStatusLabel1_Click)
+#
+#toolStripStatusLabel2
+#
+$toolStripStatusLabel2.Name = [string]'toolStripStatusLabel2'
+$toolStripStatusLabel2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]118,[System.Int32]17))
+$toolStripStatusLabel2.Text = [string]'toolStripStatusLabel2'
+$toolStripStatusLabel2.add_Click($toolStripStatusLabel2_Click)
+#
+#label27
+#
+$label27.AutoSize = $true
+$label27.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]189,[System.Int32]361))
+$label27.Name = [string]'label27'
+$label27.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]44,[System.Int32]13))
+$label27.TabIndex = [System.Int32]53
+$label27.Text = [string]'Minutes'
+#
+#label28
+#
+$label28.AutoSize = $true
+$label28.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]189,[System.Int32]387))
+$label28.Name = [string]'label28'
+$label28.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]49,[System.Int32]13))
+$label28.TabIndex = [System.Int32]55
+$label28.Text = [string]'Changes'
+#
+#mtxt_MinUpdate
+#
+$mtxt_MinUpdate.AsciiOnly = $true
+$mtxt_MinUpdate.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+
+$mtxt_MinUpdate.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]150,[System.Int32]358))
+$mtxt_MinUpdate.Mask = [string]'00'
+$mtxt_MinUpdate.Name = [string]'mtxt_MinUpdate'
+$mtxt_MinUpdate.RejectInputOnFirstFailure = $true
+$mtxt_MinUpdate.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]33,[System.Int32]20))
+$mtxt_MinUpdate.TabIndex = [System.Int32]56
+$mtxt_MinUpdate.Text = [string]'05'
+#
+#mtxt_MaxChanges
+#
+$mtxt_MaxChanges.AsciiOnly = $true
+$mtxt_MaxChanges.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+
+$mtxt_MaxChanges.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]150,[System.Int32]384))
+$mtxt_MaxChanges.Mask = [string]'00'
+$mtxt_MaxChanges.Name = [string]'mtxt_MaxChanges'
+$mtxt_MaxChanges.RejectInputOnFirstFailure = $true
+$mtxt_MaxChanges.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]33,[System.Int32]20))
+$mtxt_MaxChanges.TabIndex = [System.Int32]57
+$mtxt_MaxChanges.Text = [string]'10'
 #
 #MainForm
 #
@@ -999,9 +1040,7 @@ Add-Member -InputObject $MainForm -Name label1 -Value $label1 -MemberType NotePr
 Add-Member -InputObject $MainForm -Name cbx_Location -Value $cbx_Location -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name tabPage2 -Value $tabPage2 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label15 -Value $label15 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name textBox4 -Value $textBox4 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label14 -Value $label14 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name textBox3 -Value $textBox3 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name btn_TestAutodiscover -Value $btn_TestAutodiscover -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label16 -Value $label16 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name btn_TestUserPass -Value $btn_TestUserPass -MemberType NoteProperty
@@ -1020,15 +1059,11 @@ Add-Member -InputObject $MainForm -Name label19 -Value $label19 -MemberType Note
 Add-Member -InputObject $MainForm -Name label18 -Value $label18 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label24 -Value $label24 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label23 -Value $label23 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name domainUpDown2 -Value $domainUpDown2 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name domainUpDown1 -Value $domainUpDown1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label22 -Value $label22 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label20 -Value $label20 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label21 -Value $label21 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name txt_DomainFQDN -Value $txt_DomainFQDN -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name btn_TestDomain -Value $btn_TestDomain -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name button4 -Value $button4 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name button2 -Value $button2 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label25 -Value $label25 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label26 -Value $label26 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name Btn_ConfigBrowse -Value $Btn_ConfigBrowse -MemberType NoteProperty
@@ -1036,6 +1071,15 @@ Add-Member -InputObject $MainForm -Name Txt_ConfigFileName -Value $Txt_ConfigFil
 Add-Member -InputObject $MainForm -Name ConfigFileBrowserDialog -Value $ConfigFileBrowserDialog -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name lbl_PathWarning -Value $lbl_PathWarning -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name dbx_MemBool -Value $dbx_MemBool -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name toolStripStatusLabel2 -Value $toolStripStatusLabel2 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name btn_SaveConfig -Value $btn_SaveConfig -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name Btn_LoadConfig -Value $Btn_LoadConfig -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name Txt_BotSipAddr -Value $Txt_BotSipAddr -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name Txt_BotPassword -Value $Txt_BotPassword -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label28 -Value $label28 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label27 -Value $label27 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name mtxt_MaxChanges -Value $mtxt_MaxChanges -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name mtxt_MinUpdate -Value $mtxt_MinUpdate -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
