@@ -38,7 +38,7 @@ Start-CsRgsLocBotGui Does not output to the pipeline
 
 #>
 
-#[CmdletBinding(DefaultParametersetName="Common")]
+[CmdletBinding(DefaultParametersetName="Common")]
 param(
 	[Parameter(Mandatory=$false)] [switch]$DisableScriptUpdate,
 	[Parameter(Mandatory=$false, Position=1)] $ConfigFilePath = $null
@@ -384,6 +384,10 @@ if ($DisableScriptUpdate -eq $false) {Get-ScriptUpdate}
 #Okay, all the self checks have passed. Load the GUI elements
 . (Join-Path $PSScriptRoot 'Start-CsRgsLocBotGui.designer.ps1')
 
+#Now, Pull the details from Skype4B and AD
+
+Get-CSInfrastructure
+
 
 
 #Clean up controls and items before displaying the GUI
@@ -409,6 +413,7 @@ If(!(Test-Path $ConfigFilePath)) {
 #Set Global Filepath 
 $Txt_ConfigFileName.text = $ConfigFilePath
 $Script:ConfigPath = $ConfigFilePath
+
 
 #Display the form
 Write-Log -component "Config" -Message "Showing Form" -severity 2
