@@ -211,6 +211,31 @@ Function Test-CsAutoDiscover {
 
 }
 
+Function Test-CsManagementTools {
+Write-Log -component "Test-CsManagementTools" -Message "Checking for Lync/Skype management tools"
+	$ManagementTools = $false
+	if(!(Get-Module "SkypeForBusiness")) {Import-Module SkypeForBusiness -Verbose:$false}
+	if(!(Get-Module "Lync")) {Import-Module Lync -Verbose:$false}
+	if(Get-Module "SkypeForBusiness") {$ManagementTools = $true}
+	if(Get-Module "Lync") {$ManagementTools = $true}
+	if(!$ManagementTools) {
+		Write-Log 
+		Write-Log -component "Test-CsManagementTools" -Message "Could not locate Lync/Skype4B Management tools" -severity 3 
+		throw  "Could not locate Lync/Skype4B Management tools"
+		}
+	
+	#Check for the AD Management Tools
+	$ADManagementTools = $false
+	if(!(Get-Module "ActiveDirectory")) {Import-Module ActiveDirectory -Verbose:$false}
+	if(Get-Module "ActiveDirectory") {$ADManagementTools = $true}
+	if(!$ADManagementTools) {
+		Write-Log 
+		Write-Log -component "Test-CsManagementTools" -Message "Could not locate ActiveDirectory Management tools" -severity 3
+		throw  "Could not locate Lync/Skype4B Management tools"
+		}
+
+}
+
 Function Read-ConfigFile {
 	Write-Log -component "Read-ConfigFile" -Message "Read-ConfigFile called. Not implemented" -severity 3
 }
@@ -284,14 +309,28 @@ $Btn_ConfigBrowse_Click = {
 #endregion Controls
 
 
-#Imports all the GUI items
-. (Join-Path $PSScriptRoot 'Start-CsRgsLocBotGui.designer.ps1')
 
 #region MainScript
 #
+
+#check for script update
 if ($DisableScriptUpdate -eq $false) {Get-ScriptUpdate}
 
-#Clean up controls and items before loading the GUI
+#Check for Skype4B and AD Tools
+
+Try {Test-CsManagementTools} 
+	Catch {
+	Write-Warning 'An error occurred trying to locate the Skype4B or Active Directory management tools'
+	Write-Warning 'Install the Skype4B Management tools from you installation media and ensure the AD RSAT tools are installed'
+	Throw ('Problem locating management tools {0}' -f $error[0])
+    Exit 1
+		}
+
+#Okay, all the self checks have passed. Load the GUI elements
+. (Join-Path $PSScriptRoot 'Start-CsRgsLocBotGui.designer.ps1')
+
+
+#Clean up controls and items before displaying the GUI
 Write-Log -component "Script Block" -Message "Cleaning up form items" -severity 1
 Write-Log -component "Script Block" -Message "Script executed from $PSScriptRoot" -severity 1
 if ($ConfigFilePath -eq $null)
@@ -305,7 +344,7 @@ If(!(Test-Path $ConfigFilePath)) {
 			Write-Log -component "Config" -Message "Could not locate $ConfigFilePath in the specified folder, Using Defaults" -severity 3
 			}
 			Else {
-			Write-Log -component "Config" -Message "Found $ConfigFilePathin the specified folder, loading" -severity 1
+			Write-Log -component "Config" -Message "Found $ConfigFilePath in the specified folder, loading" -severity 1
 			
 				}
 
