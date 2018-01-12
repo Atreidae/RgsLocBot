@@ -56,7 +56,10 @@ param(
 	$LogFileLocation = $PSCommandPath -replace ".ps1",".log" #Where do we store the log files? (In the same folder by default)
 	$DefaultLogComponent = "Unknown" 
 	Write-Host "Info: Importing Base Variables" -ForegroundColor Green
-
+	#Declare our report
+	If ($Config -eq $null) {$Config=  @()}
+		$ThisReport = New-Object -TypeName PSobject  
+        $ThisReport | add-member NoteProperty "Username" -value $CsUsername
 
 #endregion variables
 
@@ -120,8 +123,6 @@ Function Get-IEProxy {
     }
 
 Function Get-ScriptUpdate {
-	
-if ($DisableScriptUpdate -eq $false) {
 	Write-Log -component "Self Update" -Message "Checking for Script Update" -severity 1
 	Write-Log -component "Self Update" -Message "Checking for Proxy" -severity 1
 	    $ProxyURL = Get-IEProxy
@@ -178,7 +179,7 @@ if ($DisableScriptUpdate -eq $false) {
         
 	       }
 
-	}
+
 }
 
 Function Test-LocBotUpdateFile {
@@ -212,6 +213,13 @@ Function Test-CsAutoDiscover {
 
 Function Read-ConfigFile {
 	Write-Log -component "Read-ConfigFile" -Message "Read-ConfigFile called. Not implemented" -severity 3
+}
+
+Function Write-ConfigFile {
+	Write-Log -component "Write-ConfigFile" -Message "Write-ConfigFile called. Not implemented" -severity 3
+
+	If (ProgressReport -eq $null) {$Global:ProgressReport=  @()}
+	 $ThisReport | add-member NoteProperty "Username" -value $CsUsername
 }
 #endregion functions
 
@@ -281,6 +289,7 @@ $Btn_ConfigBrowse_Click = {
 
 #region MainScript
 #
+if ($DisableScriptUpdate -eq $false) {Get-ScriptUpdate}
 
 #Clean up controls and items before loading the GUI
 Write-Log -component "Script Block" -Message "Cleaning up form items" -severity 1
