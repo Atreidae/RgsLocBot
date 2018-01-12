@@ -67,7 +67,6 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$button2 = $null
 [System.Windows.Forms.Label]$label25 = $null
 [System.Windows.Forms.Label]$label26 = $null
-[System.Windows.Forms.SaveFileDialog]$ConfigFileSaveDialog = $null
 [System.Windows.Forms.Button]$Btn_ConfigBrowse = $null
 [System.Windows.Forms.TextBox]$Txt_ConfigFileName = $null
 [System.Windows.Forms.FolderBrowserDialog]$ConfigFileBrowserDialog = $null
@@ -147,7 +146,6 @@ $textBox3 = (New-Object -TypeName System.Windows.Forms.TextBox)
 $btn_TestUserPass = (New-Object -TypeName System.Windows.Forms.Button)
 $statusStrip1 = (New-Object -TypeName System.Windows.Forms.StatusStrip)
 $toolStripStatusLabel1 = (New-Object -TypeName System.Windows.Forms.ToolStripStatusLabel)
-$ConfigFileSaveDialog = (New-Object -TypeName System.Windows.Forms.SaveFileDialog)
 $ConfigFileBrowserDialog = (New-Object -TypeName System.Windows.Forms.FolderBrowserDialog)
 $TabControl.SuspendLayout()
 $RulesTab.SuspendLayout()
@@ -947,11 +945,6 @@ $toolStripStatusLabel1.Size = (New-Object -TypeName System.Drawing.Size -Argumen
 $toolStripStatusLabel1.Text = [string]'toolStripStatusLabel1'
 $toolStripStatusLabel1.add_Click($toolStripStatusLabel1_Click)
 #
-#ConfigFileSaveDialog
-#
-$ConfigFileSaveDialog.DefaultExt = [string]'json'
-$ConfigFileSaveDialog.RestoreDirectory = $true
-#
 #MainForm
 #
 $MainForm.BackColor = [System.Drawing.Color]::White
@@ -1038,7 +1031,6 @@ Add-Member -InputObject $MainForm -Name button4 -Value $button4 -MemberType Note
 Add-Member -InputObject $MainForm -Name button2 -Value $button2 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label25 -Value $label25 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name label26 -Value $label26 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name ConfigFileSaveDialog -Value $ConfigFileSaveDialog -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name Btn_ConfigBrowse -Value $Btn_ConfigBrowse -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name Txt_ConfigFileName -Value $Txt_ConfigFileName -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name ConfigFileBrowserDialog -Value $ConfigFileBrowserDialog -MemberType NoteProperty

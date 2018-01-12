@@ -289,7 +289,7 @@ $Btn_ConfigBrowse_Click = {
 	if ($ConfigFileBrowserDialog.ShowDialog() -eq "Ok")
 		{
 		#Execute this block if the user presses OK
-		Write-Log -component "Config" -Message "Selected Folder is " + ($ConfigFileBrowserDialog.SelectedPath) -severity 1
+		Write-Log -component "Config" -Message "Selected Folder is $($ConfigFileBrowserDialog.SelectedPath)" -severity 1
 		$Txt_ConfigFileName.text = ($ConfigFileBrowserDialog.SelectedPath + "\RgsLocBotConfig.json")
 		
 		#Now check that Update-CsRgsLocBotQueues.ps1 is present
