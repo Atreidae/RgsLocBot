@@ -1,5 +1,38 @@
-This file simply contains all the variables I can store in the config file and what they are for
+This file simply contains all the variables I can store in the config file and what they are for (as well as their defaults)
 
 
 $Config.ConfigFileVersion = 0.2
 #For tracking config file version. When a newer config file than the script it loaded. the script aborts and prompts the user to update
+
+$dbx__FEpool.Text = [string]'aumelsfbfepool01.skype4badmin.com'
+#Selected frontend Pool
+
+$dbx_LocRule.Text = [string]'Remove users from Melbourne Reception when on Skype4Badmin Wifi'
+#Selected Rule
+
+
+#Custom defined Groups
+LocBotGrp.Index #unique id for group
+LocBotGrp.[0].Name #Name of Group
+LocBotGrp.[0].Members (array) #Members of Group
+
+
+
+#Rule Specific variables
+
+Rule.Index = 0 #Unique number to define rule
+
+Rule.[0].name #Rule Name
+
+Rule.[0].locations (array) #Selected Locations. need to figure this bit out yet
+Rule.[0].ADGroups (array)  #AdGroups. By name
+Rule.[0].LocBotGroups(array) #LocBotGroups, By Index Number
+Rule.[0].RgsGroups (array) #RgsGroups. by Identity? can we store that seperate to the name in the combobox or will I need to hold it in a variable?
+Rule.[0].LocationBoolean  #dbx_LocBool.index 
+Rule.[0].GroupBoolean  #dbx_GrpBool.index
+Rule.[0].MemberLogic  #dbx_LocLogic.index
+Rule.[0].Action  #dbx_LocAction.index
+Rule.[0].MessageBoolean  #Dbx_LocMsgBool.index
+Rule.[0].AddedMessage #tbx_AddedMsg.text
+Rule.[0].RemovedMessage #tbx_RemoveMsg.text
+
