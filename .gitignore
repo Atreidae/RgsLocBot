@@ -1,6 +1,9 @@
 ## Ignore the config json file
 RgsLocBotConfig.json
 
+## Ignore the log files
+Start-CsRgsLocBotGui.log
+Update-CsRgsLocBotQueues.log
 
 
 ## Ignore Visual Studio temporary files, build results, and
