@@ -192,7 +192,7 @@ $dbx__FEpool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList
 $dbx__FEpool.Name = [string]'dbx__FEpool'
 $dbx__FEpool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]668,[System.Int32]21))
 $dbx__FEpool.TabIndex = [System.Int32]21
-$dbx__FEpool.Text = [string]'aumelsfbfepool01.skype4badmin.com'
+$dbx__FEpool.Text = [string]'---None Selected---'
 #
 #label13
 #
@@ -255,7 +255,7 @@ $dbx_LocRule.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList
 $dbx_LocRule.Name = [string]'dbx_LocRule'
 $dbx_LocRule.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]668,[System.Int32]21))
 $dbx_LocRule.TabIndex = [System.Int32]15
-$dbx_LocRule.Text = [string]'Remove users from Melbourne Reception when on Skype4Badmin Wifi'
+$dbx_LocRule.Text = [string]'---None Selected---'
 #
 #Grp_RuleConfig
 #
@@ -289,7 +289,6 @@ $Grp_RuleConfig.Controls.Add($btn_RuleSave)
 $Grp_RuleConfig.Controls.Add($dbx_LocBool)
 $Grp_RuleConfig.Controls.Add($label1)
 $Grp_RuleConfig.Controls.Add($cbx_Location)
-$Grp_RuleConfig.Enabled = $false
 $Grp_RuleConfig.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $Grp_RuleConfig.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]16,[System.Int32]80))
@@ -418,7 +417,8 @@ $dbx_MemBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $dbx_MemBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $dbx_MemBool.FormattingEnabled = $true
-$dbx_MemBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]460,[System.Int32]54))
+$dbx_MemBool.Items.AddRange([System.Object[]]@([string]'some',[string]'all'))
+$dbx_MemBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]462,[System.Int32]54))
 $dbx_MemBool.Name = [string]'dbx_MemBool'
 $dbx_MemBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]55,[System.Int32]21))
 $dbx_MemBool.TabIndex = [System.Int32]20
@@ -469,6 +469,7 @@ $Dbx_LocMsgBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $Dbx_LocMsgBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $Dbx_LocMsgBool.FormattingEnabled = $true
+$Dbx_LocMsgBool.Items.AddRange([System.Object[]]@([string]'dont message',[string]'message'))
 $Dbx_LocMsgBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]939,[System.Int32]54))
 $Dbx_LocMsgBool.Name = [string]'Dbx_LocMsgBool'
 $Dbx_LocMsgBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]92,[System.Int32]21))
@@ -510,6 +511,7 @@ $dbx_LocAction.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $dbx_LocAction.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $dbx_LocAction.FormattingEnabled = $true
+$dbx_LocAction.Items.AddRange([System.Object[]]@([string]'remove',[string]'add'))
 $dbx_LocAction.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]640,[System.Int32]54))
 $dbx_LocAction.Name = [string]'dbx_LocAction'
 $dbx_LocAction.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]67,[System.Int32]21))
@@ -530,7 +532,7 @@ $cbx_ResponseGroupQueues.TabIndex = [System.Int32]11
 #label3
 #
 $label3.AutoSize = $true
-$label3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]394,[System.Int32]57))
+$label3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]396,[System.Int32]57))
 $label3.Name = [string]'label3'
 $label3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]68,[System.Int32]13))
 $label3.TabIndex = [System.Int32]10
@@ -542,6 +544,7 @@ $dbx_GrpBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $dbx_GrpBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $dbx_GrpBool.FormattingEnabled = $true
+$dbx_GrpBool.Items.AddRange([System.Object[]]@([string]'is not',[string]'is'))
 $dbx_GrpBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]349,[System.Int32]54))
 $dbx_GrpBool.Name = [string]'dbx_GrpBool'
 $dbx_GrpBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]46,[System.Int32]21))
@@ -588,6 +591,7 @@ $dbx_LocBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $dbx_LocBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $dbx_LocBool.FormattingEnabled = $true
+$dbx_LocBool.Items.AddRange([System.Object[]]@([string]'is not',[string]'is'))
 $dbx_LocBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]84,[System.Int32]54))
 $dbx_LocBool.Name = [string]'dbx_LocBool'
 $dbx_LocBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]56,[System.Int32]21))
