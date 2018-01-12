@@ -76,6 +76,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigFileVariables.txt" />
     <Content Include="LICENSE" />
     <Content Include="README.md" />
     <Content Include="version" />

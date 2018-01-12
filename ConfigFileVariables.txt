@@ -1,0 +1,5 @@
+This file simply contains all the variables I can store in the config file and what they are for
+
+
+$Config.ConfigFileVersion = 0.2
+#For tracking config file version. When a newer config file than the script it loaded. the script aborts and prompts the user to update

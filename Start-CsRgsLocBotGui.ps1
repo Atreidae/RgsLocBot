@@ -30,7 +30,6 @@
 .PARAMETER ConfigFilePath
 	Specify the location of the RgsLocBotConfig.json file, Defaults to the current directory
 
-
 .INPUT
 Start-CsRgsLocBotGui Does not accept input from the pipeline.
 
@@ -48,7 +47,7 @@ param(
 # Script Specific Variables #
 #############################
 	#Set for internal builds
-	$VerbosePreference = "Continue"
+	$VerbosePreference = "Continue" #Todo Preview Build Only
 	
 	$ScriptVersion = 0.2
 	$StartTime = Get-Date
@@ -56,10 +55,8 @@ param(
 	$LogFileLocation = $PSCommandPath -replace ".ps1",".log" #Where do we store the log files? (In the same folder by default)
 	$DefaultLogComponent = "Unknown" 
 	Write-Host "Info: Importing Base Variables" -ForegroundColor Green
-	#Declare our report
-	If ($Config -eq $null) {$Config=  @()}
-		$ThisReport = New-Object -TypeName PSobject  
-        $ThisReport | add-member NoteProperty "Username" -value $CsUsername
+	
+       
 
 #endregion variables
 
@@ -230,8 +227,8 @@ Write-Log -component "Test-CsManagementTools" -Message "Checking for Lync/Skype 
 	if(Get-Module "ActiveDirectory") {$ADManagementTools = $true}
 	if(!$ADManagementTools) {
 		Write-Log 
-		Write-Log -component "Test-CsManagementTools" -Message "Could not locate ActiveDirectory Management tools" -severity 3
-		throw  "Could not locate Lync/Skype4B Management tools"
+		Write-Log -component "Test-CsManagementTools" -Message "Could not locate Active Directory Management tools" -severity 3
+		throw  "Could not locate Active Directory Management tools"
 		}
 
 }
@@ -245,6 +242,19 @@ Function Write-ConfigFile {
 
 	If (ProgressReport -eq $null) {$Global:ProgressReport=  @()}
 	 $ThisReport | add-member NoteProperty "Username" -value $CsUsername
+}
+
+Function Load-DefaultConfig {
+	
+	If (!$Config) 
+		{$Config=@{}
+			$Config.ConfigFileVersion = 0.2
+
+		}
+	Else {Write-Log -component "Load-DefaultConfig" -Message "Load-DefaultConfig Called but `$Config not Null" -severity 3 
+			$config}
+		
+		
 }
 #endregion functions
 
@@ -318,16 +328,18 @@ if ($DisableScriptUpdate -eq $false) {Get-ScriptUpdate}
 
 #Check for Skype4B and AD Tools
 
-Try {Test-CsManagementTools} 
+<# Try {Test-CsManagementTools} #Todo Re-enable checks
 	Catch {
 	Write-Warning 'An error occurred trying to locate the Skype4B or Active Directory management tools'
 	Write-Warning 'Install the Skype4B Management tools from you installation media and ensure the AD RSAT tools are installed'
 	Throw ('Problem locating management tools {0}' -f $error[0])
     Exit 1
 		}
+#>
 
 #Okay, all the self checks have passed. Load the GUI elements
 . (Join-Path $PSScriptRoot 'Start-CsRgsLocBotGui.designer.ps1')
+
 
 
 #Clean up controls and items before displaying the GUI
@@ -342,10 +354,12 @@ if ($ConfigFilePath -eq $null)
 #Check for and load the config file if present
 If(!(Test-Path $ConfigFilePath)) {
 			Write-Log -component "Config" -Message "Could not locate $ConfigFilePath in the specified folder, Using Defaults" -severity 3
+			#If there is no config file. Load a default
+			Load-DefaultConfig
 			}
 			Else {
 			Write-Log -component "Config" -Message "Found $ConfigFilePath in the specified folder, loading" -severity 1
-			
+			#Todo Loadconfig File
 				}
 
 

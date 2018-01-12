@@ -47,7 +47,6 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.ComboBox]$dbx__FEpool = $null
 [System.Windows.Forms.TextBox]$tbx_RemoveMsg = $null
 [System.Windows.Forms.TextBox]$tbx_AddedMsg = $null
-[System.Windows.Forms.ComboBox]$dbx_LocLogic = $null
 [System.Windows.Forms.ComboBox]$Dbx_LocMsgBool = $null
 [System.Windows.Forms.ComboBox]$dbx_LocAction = $null
 [System.Windows.Forms.ComboBox]$dbx_GrpBool = $null
@@ -73,6 +72,7 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.TextBox]$Txt_ConfigFileName = $null
 [System.Windows.Forms.FolderBrowserDialog]$ConfigFileBrowserDialog = $null
 [System.Windows.Forms.Label]$lbl_PathWarning = $null
+[System.Windows.Forms.ComboBox]$dbx_MemBool = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -98,7 +98,7 @@ $Btn_DeleteGroup = (New-Object -TypeName System.Windows.Forms.Button)
 $Btn_NewGroup = (New-Object -TypeName System.Windows.Forms.Button)
 $label10 = (New-Object -TypeName System.Windows.Forms.Label)
 $Tbx_RuleName = (New-Object -TypeName System.Windows.Forms.TextBox)
-$dbx_LocLogic = (New-Object -TypeName System.Windows.Forms.ComboBox)
+$dbx_MemBool = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $label9 = (New-Object -TypeName System.Windows.Forms.Label)
 $Btn_RevertRule = (New-Object -TypeName System.Windows.Forms.Button)
 $label8 = (New-Object -TypeName System.Windows.Forms.Label)
@@ -270,7 +270,7 @@ $Grp_RuleConfig.Controls.Add($Btn_DeleteGroup)
 $Grp_RuleConfig.Controls.Add($Btn_NewGroup)
 $Grp_RuleConfig.Controls.Add($label10)
 $Grp_RuleConfig.Controls.Add($Tbx_RuleName)
-$Grp_RuleConfig.Controls.Add($dbx_LocLogic)
+$Grp_RuleConfig.Controls.Add($dbx_MemBool)
 $Grp_RuleConfig.Controls.Add($label9)
 $Grp_RuleConfig.Controls.Add($Btn_RevertRule)
 $Grp_RuleConfig.Controls.Add($label8)
@@ -412,17 +412,17 @@ $Tbx_RuleName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $Tbx_RuleName.TabIndex = [System.Int32]21
 $Tbx_RuleName.Text = [string]'Remove users from Melbourne Reception when on Skype4Badmin Wifi'
 #
-#dbx_LocLogic
+#dbx_MemBool
 #
-$dbx_LocLogic.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$dbx_LocLogic.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+$dbx_MemBool.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$dbx_MemBool.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
-$dbx_LocLogic.FormattingEnabled = $true
-$dbx_LocLogic.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]460,[System.Int32]54))
-$dbx_LocLogic.Name = [string]'dbx_LocLogic'
-$dbx_LocLogic.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]55,[System.Int32]21))
-$dbx_LocLogic.TabIndex = [System.Int32]20
-$dbx_LocLogic.Text = [string]'some'
+$dbx_MemBool.FormattingEnabled = $true
+$dbx_MemBool.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]460,[System.Int32]54))
+$dbx_MemBool.Name = [string]'dbx_MemBool'
+$dbx_MemBool.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]55,[System.Int32]21))
+$dbx_MemBool.TabIndex = [System.Int32]20
+$dbx_MemBool.Text = [string]'some'
 #
 #label9
 #
@@ -1014,7 +1014,6 @@ Add-Member -InputObject $MainForm -Name toolStripStatusLabel1 -Value $toolStripS
 Add-Member -InputObject $MainForm -Name dbx__FEpool -Value $dbx__FEpool -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name tbx_RemoveMsg -Value $tbx_RemoveMsg -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name tbx_AddedMsg -Value $tbx_AddedMsg -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name dbx_LocLogic -Value $dbx_LocLogic -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name Dbx_LocMsgBool -Value $Dbx_LocMsgBool -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name dbx_LocAction -Value $dbx_LocAction -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name dbx_GrpBool -Value $dbx_GrpBool -MemberType NoteProperty
@@ -1040,6 +1039,7 @@ Add-Member -InputObject $MainForm -Name Btn_ConfigBrowse -Value $Btn_ConfigBrows
 Add-Member -InputObject $MainForm -Name Txt_ConfigFileName -Value $Txt_ConfigFileName -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name ConfigFileBrowserDialog -Value $ConfigFileBrowserDialog -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name lbl_PathWarning -Value $lbl_PathWarning -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name dbx_MemBool -Value $dbx_MemBool -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
