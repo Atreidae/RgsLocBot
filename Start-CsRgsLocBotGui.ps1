@@ -290,6 +290,17 @@ Function Load-DefaultConfig {
 		
 		
 }
+
+Function Get-CSInfrastructure(){
+	#Clear the Dropboxes
+$dbx__FEpool.items.Clear()
+$WPFCbx_ServiceID.Items.Clear()
+	Write-Log -component "Get-CSInfrastructure" -Message "Pulling FrontEnd info" -severity 1
+	Write-Log -component "Get-CSInfrastructure" -Message "Detected Front Ends:" -severity 1
+	Get-CSService -ApplicationServer | select-object PoolFQDN | ForEach-Object {Write-Log -component "Get-CSInfrastructure" -Message "$($_.PoolFQDN)" -severity 1}
+    Get-CSService -ApplicationServer | select-object PoolFQDN | ForEach-Object {[void]$dbx__FEpool.Items.Add($_.PoolFQDN)}
+
+}
 #endregion functions
 
 
@@ -401,9 +412,11 @@ If(!(Test-Path $ConfigFilePath)) {
 			#Todo Loadconfig File
 				}
 
-
+#Set Global Filepath 
 $Txt_ConfigFileName.text = $ConfigFilePath
 $Script:ConfigPath = $ConfigFilePath
+
+#Display the form
 Write-Log -component "Config" -Message "Showing Form" -severity 2
 $MainForm.ShowDialog()
 
