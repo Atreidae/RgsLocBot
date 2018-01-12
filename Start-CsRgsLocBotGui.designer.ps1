@@ -43,7 +43,6 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$btn_TestUserPass = $null
 [System.Windows.Forms.TextBox]$tbx_Autodiscover = $null
 [System.Windows.Forms.StatusStrip]$statusStrip1 = $null
-[System.Windows.Forms.ToolStripProgressBar]$toolStripProgressBar1 = $null
 [System.Windows.Forms.ToolStripStatusLabel]$toolStripStatusLabel1 = $null
 [System.Windows.Forms.ComboBox]$dbx__FEpool = $null
 [System.Windows.Forms.TextBox]$tbx_RemoveMsg = $null
@@ -53,6 +52,25 @@ $MainForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.ComboBox]$dbx_LocAction = $null
 [System.Windows.Forms.ComboBox]$dbx_GrpBool = $null
 [System.Windows.Forms.ComboBox]$dbx_LocBool = $null
+[System.Windows.Forms.Label]$label17 = $null
+[System.Windows.Forms.Label]$label19 = $null
+[System.Windows.Forms.Label]$label18 = $null
+[System.Windows.Forms.Label]$label24 = $null
+[System.Windows.Forms.Label]$label23 = $null
+[System.Windows.Forms.DomainUpDown]$domainUpDown2 = $null
+[System.Windows.Forms.DomainUpDown]$domainUpDown1 = $null
+[System.Windows.Forms.Label]$label22 = $null
+[System.Windows.Forms.Label]$label20 = $null
+[System.Windows.Forms.Label]$label21 = $null
+[System.Windows.Forms.TextBox]$txt_DomainFQDN = $null
+[System.Windows.Forms.Button]$btn_TestDomain = $null
+[System.Windows.Forms.Button]$button4 = $null
+[System.Windows.Forms.Button]$button2 = $null
+[System.Windows.Forms.TextBox]$textBox1 = $null
+[System.Windows.Forms.Label]$label25 = $null
+[System.Windows.Forms.Label]$label26 = $null
+[System.Windows.Forms.SaveFileDialog]$ConfigFileSaveDialog = $null
+[System.Windows.Forms.Button]$Btn_ConfigBrowse = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -98,6 +116,24 @@ $dbx_LocBool = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $cbx_Location = (New-Object -TypeName System.Windows.Forms.CheckedListBox)
 $tabPage2 = (New-Object -TypeName System.Windows.Forms.TabPage)
+$button4 = (New-Object -TypeName System.Windows.Forms.Button)
+$Btn_ConfigBrowse = (New-Object -TypeName System.Windows.Forms.Button)
+$button2 = (New-Object -TypeName System.Windows.Forms.Button)
+$textBox1 = (New-Object -TypeName System.Windows.Forms.TextBox)
+$label25 = (New-Object -TypeName System.Windows.Forms.Label)
+$label26 = (New-Object -TypeName System.Windows.Forms.Label)
+$label24 = (New-Object -TypeName System.Windows.Forms.Label)
+$label23 = (New-Object -TypeName System.Windows.Forms.Label)
+$domainUpDown2 = (New-Object -TypeName System.Windows.Forms.DomainUpDown)
+$domainUpDown1 = (New-Object -TypeName System.Windows.Forms.DomainUpDown)
+$label22 = (New-Object -TypeName System.Windows.Forms.Label)
+$label20 = (New-Object -TypeName System.Windows.Forms.Label)
+$label21 = (New-Object -TypeName System.Windows.Forms.Label)
+$btn_TestDomain = (New-Object -TypeName System.Windows.Forms.Button)
+$txt_DomainFQDN = (New-Object -TypeName System.Windows.Forms.TextBox)
+$label19 = (New-Object -TypeName System.Windows.Forms.Label)
+$label18 = (New-Object -TypeName System.Windows.Forms.Label)
+$label17 = (New-Object -TypeName System.Windows.Forms.Label)
 $btn_TestAutodiscover = (New-Object -TypeName System.Windows.Forms.Button)
 $tbx_Autodiscover = (New-Object -TypeName System.Windows.Forms.TextBox)
 $label16 = (New-Object -TypeName System.Windows.Forms.Label)
@@ -107,20 +143,19 @@ $label14 = (New-Object -TypeName System.Windows.Forms.Label)
 $textBox3 = (New-Object -TypeName System.Windows.Forms.TextBox)
 $btn_TestUserPass = (New-Object -TypeName System.Windows.Forms.Button)
 $statusStrip1 = (New-Object -TypeName System.Windows.Forms.StatusStrip)
-$toolStripProgressBar1 = (New-Object -TypeName System.Windows.Forms.ToolStripProgressBar)
 $toolStripStatusLabel1 = (New-Object -TypeName System.Windows.Forms.ToolStripStatusLabel)
+$ConfigFileSaveDialog = (New-Object -TypeName System.Windows.Forms.SaveFileDialog)
 $TabControl.SuspendLayout()
 $RulesTab.SuspendLayout()
 $Grp_RuleConfig.SuspendLayout()
 $tabPage2.SuspendLayout()
-$statusStrip1.SuspendLayout()
 $MainForm.SuspendLayout()
 #
 #TabControl
 #
 $TabControl.Controls.Add($RulesTab)
 $TabControl.Controls.Add($tabPage2)
-$TabControl.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]12,[System.Int32]42))
+$TabControl.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]12,[System.Int32]12))
 $TabControl.Name = [string]'TabControl'
 $TabControl.SelectedIndex = [System.Int32]0
 $TabControl.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1126,[System.Int32]778))
@@ -577,6 +612,25 @@ $cbx_Location.TabIndex = [System.Int32]1
 #
 #tabPage2
 #
+$tabPage2.BackColor = [System.Drawing.Color]::White
+$tabPage2.Controls.Add($button4)
+$tabPage2.Controls.Add($Btn_ConfigBrowse)
+$tabPage2.Controls.Add($button2)
+$tabPage2.Controls.Add($textBox1)
+$tabPage2.Controls.Add($label25)
+$tabPage2.Controls.Add($label26)
+$tabPage2.Controls.Add($label24)
+$tabPage2.Controls.Add($label23)
+$tabPage2.Controls.Add($domainUpDown2)
+$tabPage2.Controls.Add($domainUpDown1)
+$tabPage2.Controls.Add($label22)
+$tabPage2.Controls.Add($label20)
+$tabPage2.Controls.Add($label21)
+$tabPage2.Controls.Add($btn_TestDomain)
+$tabPage2.Controls.Add($txt_DomainFQDN)
+$tabPage2.Controls.Add($label19)
+$tabPage2.Controls.Add($label18)
+$tabPage2.Controls.Add($label17)
 $tabPage2.Controls.Add($btn_TestAutodiscover)
 $tabPage2.Controls.Add($tbx_Autodiscover)
 $tabPage2.Controls.Add($label16)
@@ -591,7 +645,187 @@ $tabPage2.Padding = (New-Object -TypeName System.Windows.Forms.Padding -Argument
 $tabPage2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1118,[System.Int32]752))
 $tabPage2.TabIndex = [System.Int32]1
 $tabPage2.Text = [string]'Configuration'
-$tabPage2.UseVisualStyleBackColor = $true
+#
+#button4
+#
+$button4.BackColor = [System.Drawing.Color]::White
+$button4.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$button4.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$button4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]867,[System.Int32]504))
+$button4.Name = [string]'button4'
+$button4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$button4.TabIndex = [System.Int32]50
+$button4.Text = [string]'Save'
+$button4.UseVisualStyleBackColor = $false
+#
+#Btn_ConfigBrowse
+#
+$Btn_ConfigBrowse.BackColor = [System.Drawing.Color]::White
+$Btn_ConfigBrowse.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$Btn_ConfigBrowse.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$Btn_ConfigBrowse.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]948,[System.Int32]504))
+$Btn_ConfigBrowse.Name = [string]'Btn_ConfigBrowse'
+$Btn_ConfigBrowse.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$Btn_ConfigBrowse.TabIndex = [System.Int32]49
+$Btn_ConfigBrowse.Text = [string]'Browse...'
+$Btn_ConfigBrowse.UseVisualStyleBackColor = $false
+$Btn_ConfigBrowse.add_Click($Btn_ConfigBrowse_Click)
+#
+#button2
+#
+$button2.BackColor = [System.Drawing.Color]::White
+$button2.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$button2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$button2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]786,[System.Int32]505))
+$button2.Name = [string]'button2'
+$button2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$button2.TabIndex = [System.Int32]48
+$button2.Text = [string]'Load'
+$button2.UseVisualStyleBackColor = $false
+#
+#textBox1
+#
+$textBox1.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+
+$textBox1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]126,[System.Int32]507))
+$textBox1.Name = [string]'textBox1'
+$textBox1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]650,[System.Int32]20))
+$textBox1.TabIndex = [System.Int32]47
+$textBox1.Text = [string]'Skype4bAdmin.local'
+#
+#label25
+#
+$label25.AutoSize = $true
+$label25.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]22,[System.Int32]510))
+$label25.Name = [string]'label25'
+$label25.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]67,[System.Int32]13))
+$label25.TabIndex = [System.Int32]46
+$label25.Text = [string]'File Location'
+#
+#label26
+#
+$label26.AutoSize = $true
+$label26.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$label26.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]22,[System.Int32]482))
+$label26.Name = [string]'label26'
+$label26.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]67,[System.Int32]13))
+$label26.TabIndex = [System.Int32]45
+$label26.Text = [string]'Config File'
+#
+#label24
+#
+$label24.AutoSize = $true
+$label24.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]268,[System.Int32]388))
+$label24.Name = [string]'label24'
+$label24.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]812,[System.Int32]13))
+$label24.TabIndex = [System.Int32]44
+$label24.Text = [string]'If the Update-CsRgsLocBotQueues.ps1 detects more than the specified amount of user changes per run. The script will fire an error and exit to prevent excessive changes.'
+#
+#label23
+#
+$label23.AutoSize = $true
+$label23.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]268,[System.Int32]361))
+$label23.Name = [string]'label23'
+$label23.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]786,[System.Int32]13))
+$label23.TabIndex = [System.Int32]43
+$label23.Text = [string]'If the Update-CsRgsLocBotQueues.ps1 scheduled task is run more often than this. The script wil exit without making changes. This prevents excessive backend load'
+#
+#domainUpDown2
+#
+$domainUpDown2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]142,[System.Int32]359))
+$domainUpDown2.Name = [string]'domainUpDown2'
+$domainUpDown2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]120,[System.Int32]20))
+$domainUpDown2.TabIndex = [System.Int32]42
+$domainUpDown2.Text = [string]'domainUpDown2'
+#
+#domainUpDown1
+#
+$domainUpDown1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]142,[System.Int32]386))
+$domainUpDown1.Name = [string]'domainUpDown1'
+$domainUpDown1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]120,[System.Int32]20))
+$domainUpDown1.TabIndex = [System.Int32]41
+$domainUpDown1.Text = [string]'domainUpDown1'
+#
+#label22
+#
+$label22.AutoSize = $true
+$label22.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]22,[System.Int32]388))
+$label22.Name = [string]'label22'
+$label22.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]114,[System.Int32]13))
+$label22.TabIndex = [System.Int32]40
+$label22.Text = [string]'Max Changes Per Run'
+#
+#label20
+#
+$label20.AutoSize = $true
+$label20.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]22,[System.Int32]361))
+$label20.Name = [string]'label20'
+$label20.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]100,[System.Int32]13))
+$label20.TabIndex = [System.Int32]37
+$label20.Text = [string]'Min Update Interval'
+#
+#label21
+#
+$label21.AutoSize = $true
+$label21.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$label21.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]22,[System.Int32]333))
+$label21.Name = [string]'label21'
+$label21.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]93,[System.Int32]13))
+$label21.TabIndex = [System.Int32]36
+$label21.Text = [string]'Tool Behaviour'
+#
+#btn_TestDomain
+#
+$btn_TestDomain.BackColor = [System.Drawing.Color]::Yellow
+$btn_TestDomain.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$btn_TestDomain.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$btn_TestDomain.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]948,[System.Int32]240))
+$btn_TestDomain.Name = [string]'btn_TestDomain'
+$btn_TestDomain.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$btn_TestDomain.TabIndex = [System.Int32]35
+$btn_TestDomain.Text = [string]'Test'
+$btn_TestDomain.UseVisualStyleBackColor = $false
+#
+#txt_DomainFQDN
+#
+$txt_DomainFQDN.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+
+$txt_DomainFQDN.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]126,[System.Int32]242))
+$txt_DomainFQDN.Name = [string]'txt_DomainFQDN'
+$txt_DomainFQDN.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]816,[System.Int32]20))
+$txt_DomainFQDN.TabIndex = [System.Int32]34
+$txt_DomainFQDN.Text = [string]'Skype4bAdmin.local'
+#
+#label19
+#
+$label19.AutoSize = $true
+$label19.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]22,[System.Int32]245))
+$label19.Name = [string]'label19'
+$label19.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]76,[System.Int32]13))
+$label19.TabIndex = [System.Int32]33
+$label19.Text = [string]'Domain FQDN'
+$label19.add_Click($label19_Click)
+#
+#label18
+#
+$label18.AutoSize = $true
+$label18.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$label18.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]22,[System.Int32]217))
+$label18.Name = [string]'label18'
+$label18.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]89,[System.Int32]13))
+$label18.TabIndex = [System.Int32]32
+$label18.Text = [string]'Domain Config'
+#
+#label17
+#
+$label17.AutoSize = $true
+$label17.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$label17.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]22,[System.Int32]56))
+$label17.Name = [string]'label17'
+$label17.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]84,[System.Int32]13))
+$label17.TabIndex = [System.Int32]31
+$label17.Text = [string]'UCWA Config'
+$label17.add_Click($label17_Click)
 #
 #btn_TestAutodiscover
 #
@@ -667,6 +901,7 @@ $textBox3.Text = [string]'RGSLocBot@Skype4bAdmin.com'
 #
 #btn_TestUserPass
 #
+$btn_TestUserPass.BackColor = [System.Drawing.Color]::Yellow
 $btn_TestUserPass.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 $btn_TestUserPass.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([string]'Microsoft Sans Serif',[System.Single]8.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
 $btn_TestUserPass.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]948,[System.Int32]107))
@@ -674,21 +909,15 @@ $btn_TestUserPass.Name = [string]'btn_TestUserPass'
 $btn_TestUserPass.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $btn_TestUserPass.TabIndex = [System.Int32]23
 $btn_TestUserPass.Text = [string]'Test'
-$btn_TestUserPass.UseVisualStyleBackColor = $true
+$btn_TestUserPass.UseVisualStyleBackColor = $false
 #
 #statusStrip1
 #
-$statusStrip1.Items.AddRange([System.Windows.Forms.ToolStripItem[]]@($toolStripProgressBar1,$toolStripStatusLabel1))
-$statusStrip1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]832))
+$statusStrip1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]807))
 $statusStrip1.Name = [string]'statusStrip1'
-$statusStrip1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1249,[System.Int32]22))
+$statusStrip1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1148,[System.Int32]22))
 $statusStrip1.TabIndex = [System.Int32]35
 $statusStrip1.Text = [string]'statusStrip1'
-#
-#toolStripProgressBar1
-#
-$toolStripProgressBar1.Name = [string]'toolStripProgressBar1'
-$toolStripProgressBar1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]100,[System.Int32]16))
 #
 #toolStripStatusLabel1
 #
@@ -700,7 +929,7 @@ $toolStripStatusLabel1.add_Click($toolStripStatusLabel1_Click)
 #MainForm
 #
 $MainForm.BackColor = [System.Drawing.Color]::White
-$MainForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1249,[System.Int32]854))
+$MainForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1148,[System.Int32]829))
 $MainForm.Controls.Add($statusStrip1)
 $MainForm.Controls.Add($TabControl)
 $MainForm.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
@@ -714,8 +943,6 @@ $Grp_RuleConfig.ResumeLayout($false)
 $Grp_RuleConfig.PerformLayout()
 $tabPage2.ResumeLayout($false)
 $tabPage2.PerformLayout()
-$statusStrip1.ResumeLayout($false)
-$statusStrip1.PerformLayout()
 $MainForm.ResumeLayout($false)
 $MainForm.PerformLayout()
 Add-Member -InputObject $MainForm -Name base -Value $base -MemberType NoteProperty
@@ -761,7 +988,6 @@ Add-Member -InputObject $MainForm -Name label16 -Value $label16 -MemberType Note
 Add-Member -InputObject $MainForm -Name btn_TestUserPass -Value $btn_TestUserPass -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name tbx_Autodiscover -Value $tbx_Autodiscover -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name statusStrip1 -Value $statusStrip1 -MemberType NoteProperty
-Add-Member -InputObject $MainForm -Name toolStripProgressBar1 -Value $toolStripProgressBar1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name toolStripStatusLabel1 -Value $toolStripStatusLabel1 -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name dbx__FEpool -Value $dbx__FEpool -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name tbx_RemoveMsg -Value $tbx_RemoveMsg -MemberType NoteProperty
@@ -771,6 +997,25 @@ Add-Member -InputObject $MainForm -Name Dbx_LocMsgBool -Value $Dbx_LocMsgBool -M
 Add-Member -InputObject $MainForm -Name dbx_LocAction -Value $dbx_LocAction -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name dbx_GrpBool -Value $dbx_GrpBool -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name dbx_LocBool -Value $dbx_LocBool -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label17 -Value $label17 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label19 -Value $label19 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label18 -Value $label18 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label24 -Value $label24 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label23 -Value $label23 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name domainUpDown2 -Value $domainUpDown2 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name domainUpDown1 -Value $domainUpDown1 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label22 -Value $label22 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label20 -Value $label20 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label21 -Value $label21 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name txt_DomainFQDN -Value $txt_DomainFQDN -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name btn_TestDomain -Value $btn_TestDomain -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name button4 -Value $button4 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name button2 -Value $button2 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name textBox1 -Value $textBox1 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label25 -Value $label25 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name label26 -Value $label26 -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name ConfigFileSaveDialog -Value $ConfigFileSaveDialog -MemberType NoteProperty
+Add-Member -InputObject $MainForm -Name Btn_ConfigBrowse -Value $Btn_ConfigBrowse -MemberType NoteProperty
 Add-Member -InputObject $MainForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

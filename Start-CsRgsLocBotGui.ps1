@@ -1,6 +1,4 @@
-﻿
-
-<#  
+﻿<#  
 .SYNOPSIS  
 	Todo, build synopsis
 
@@ -11,12 +9,13 @@
     
 	
 .NOTES  
-    Version      	   	: 0.1 (Devel)
-	Date			    : 29/12/2017
+    Version      	   	: 0.2 (Devel)
+	Date			    : 07/1/2018
 	Lync Version		: Tested against Skype4B 2015
     Author    			: James Arber
 	Header stolen from  : Greig Sheridan who stole it from Pat Richard's amazing "Get-CsConnections.ps1"
 							
+	:v0.2:  Internal Build
 	:v0.1:	Internal Build
 	
 .LINK  
@@ -36,11 +35,15 @@ Start-CsRgsLocBotGui Does not output to the pipeline
 
 #>
 
+[CmdletBinding(DefaultParametersetName="Common")]
+param(
+	[Parameter(Mandatory=$false)] [switch]$DisableScriptUpdate
+	)
 #############################
 # Script Specific Variables #
 #############################
 
-	$ScriptVersion = 0.1
+	$ScriptVersion = 0.2
 	$StartTime = Get-Date
 	Write-Host "Info: Start-CsRGSLocBotGui Version $ScriptVersion started at $StartTime" -ForegroundColor Green
 	$LogFileLocation = $PSCommandPath -replace ".ps1",".log" #Where do we store the log files? (In the same folder by default)
@@ -208,6 +211,32 @@ $tbx_Autodiscover_TextChanged = {
 	$btn_TestAutodiscover.backcolor = "Yellow"
 }
 
+
+#Config Browse Button
+$Btn_ConfigBrowse_Click = {
+Write-Log -component "Config" -Message "Browse Button Pressed" -severity 2
+#	param([object]$sender, [System.EventArgs]$e)
+#	[SaveFileDialog]$ConfigFileSaveDialog = (New-Object -TypeName SaveFileDialog)
+	$ConfigFileSaveDialog.InitialDirectory = ($MyInvocation.MyCommand.Path)
+	$ConfigFileSaveDialog.FileName = "RgsLocBotConfig.json"
+	$ConfigFileSaveDialog.Filter = "Config File|*.json"
+	$ConfigFileSaveDialog.Title = "Save Config File"
+	if ($ConfigFileSaveDialog.ShowDialog() -eq "Ok")
+#	if($dlg.ShowDialog() -eq 'Ok')
+
+#	if ($ConfigFileSaveDialog.filename -ne "")
+	{
+	Write-Log -component "Config" -Message "$ConfigFileSaveDialog" -severity 2
+		[System.IO.FileStream]$fs = [System.IO.FileStream]$saveFileDialog1.OpenFile()
+		
+		$fs.Close()
+	}
+
+
+
+}
+
+
 #endregion Configtab
 
 
@@ -217,5 +246,7 @@ $tbx_Autodiscover_TextChanged = {
 
 
 . (Join-Path $PSScriptRoot 'Start-CsRgsLocBotGui.designer.ps1')
+
+#
 
 $MainForm.ShowDialog()

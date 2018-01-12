@@ -33,6 +33,11 @@
       <HintPath>
       </HintPath>
     </Reference>
+    <Reference Include="System.DirectoryServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>System.DirectoryServices</Name>
+      <AssemblyName>System.DirectoryServices.dll</AssemblyName>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client\System.DirectoryServices.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Name>System.Drawing</Name>
       <AssemblyName>
@@ -69,6 +74,11 @@
     <EmbeddedResource Include="Start-CsRgsLocBotGui.resx">
       <DependentUpon>Start-CsRgsLocBotGui.ps1</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE" />
+    <Content Include="README.md" />
+    <Content Include="version" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
