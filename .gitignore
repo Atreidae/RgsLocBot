@@ -1,5 +1,6 @@
-## Ignore the config json file
+## Ignore the config json file and Keyfile
 RgsLocBotConfig.json
+RgsLocBotConfig.key
 
 ## Ignore the log files
 Start-CsRgsLocBotGui.log

@@ -120,6 +120,10 @@ $dbx_LocBool = (New-Object -TypeName System.Windows.Forms.ComboBox)
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $cbx_Location = (New-Object -TypeName System.Windows.Forms.CheckedListBox)
 $tabPage2 = (New-Object -TypeName System.Windows.Forms.TabPage)
+$mtxt_MaxChanges = (New-Object -TypeName System.Windows.Forms.MaskedTextBox)
+$mtxt_MinUpdate = (New-Object -TypeName System.Windows.Forms.MaskedTextBox)
+$label28 = (New-Object -TypeName System.Windows.Forms.Label)
+$label27 = (New-Object -TypeName System.Windows.Forms.Label)
 $lbl_PathWarning = (New-Object -TypeName System.Windows.Forms.Label)
 $btn_SaveConfig = (New-Object -TypeName System.Windows.Forms.Button)
 $Btn_ConfigBrowse = (New-Object -TypeName System.Windows.Forms.Button)
@@ -149,10 +153,6 @@ $statusStrip1 = (New-Object -TypeName System.Windows.Forms.StatusStrip)
 $toolStripStatusLabel1 = (New-Object -TypeName System.Windows.Forms.ToolStripStatusLabel)
 $ConfigFileBrowserDialog = (New-Object -TypeName System.Windows.Forms.FolderBrowserDialog)
 $toolStripStatusLabel2 = (New-Object -TypeName System.Windows.Forms.ToolStripStatusLabel)
-$label27 = (New-Object -TypeName System.Windows.Forms.Label)
-$label28 = (New-Object -TypeName System.Windows.Forms.Label)
-$mtxt_MinUpdate = (New-Object -TypeName System.Windows.Forms.MaskedTextBox)
-$mtxt_MaxChanges = (New-Object -TypeName System.Windows.Forms.MaskedTextBox)
 $TabControl.SuspendLayout()
 $RulesTab.SuspendLayout()
 $Grp_RuleConfig.SuspendLayout()
@@ -656,6 +656,50 @@ $tabPage2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $tabPage2.TabIndex = [System.Int32]1
 $tabPage2.Text = [string]'Configuration'
 #
+#mtxt_MaxChanges
+#
+$mtxt_MaxChanges.AsciiOnly = $true
+$mtxt_MaxChanges.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+
+$mtxt_MaxChanges.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]150,[System.Int32]384))
+$mtxt_MaxChanges.Mask = [string]'00'
+$mtxt_MaxChanges.Name = [string]'mtxt_MaxChanges'
+$mtxt_MaxChanges.RejectInputOnFirstFailure = $true
+$mtxt_MaxChanges.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]33,[System.Int32]20))
+$mtxt_MaxChanges.TabIndex = [System.Int32]57
+$mtxt_MaxChanges.Text = [string]'10'
+#
+#mtxt_MinUpdate
+#
+$mtxt_MinUpdate.AsciiOnly = $true
+$mtxt_MinUpdate.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
+
+$mtxt_MinUpdate.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]150,[System.Int32]358))
+$mtxt_MinUpdate.Mask = [string]'00'
+$mtxt_MinUpdate.Name = [string]'mtxt_MinUpdate'
+$mtxt_MinUpdate.RejectInputOnFirstFailure = $true
+$mtxt_MinUpdate.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]33,[System.Int32]20))
+$mtxt_MinUpdate.TabIndex = [System.Int32]56
+$mtxt_MinUpdate.Text = [string]'05'
+#
+#label28
+#
+$label28.AutoSize = $true
+$label28.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]189,[System.Int32]387))
+$label28.Name = [string]'label28'
+$label28.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]49,[System.Int32]13))
+$label28.TabIndex = [System.Int32]55
+$label28.Text = [string]'Changes'
+#
+#label27
+#
+$label27.AutoSize = $true
+$label27.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]189,[System.Int32]361))
+$label27.Name = [string]'label27'
+$label27.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]44,[System.Int32]13))
+$label27.TabIndex = [System.Int32]53
+$label27.Text = [string]'Minutes'
+#
 #lbl_PathWarning
 #
 $lbl_PathWarning.AutoSize = $true
@@ -705,6 +749,7 @@ $Btn_LoadConfig.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $Btn_LoadConfig.TabIndex = [System.Int32]48
 $Btn_LoadConfig.Text = [string]'Load'
 $Btn_LoadConfig.UseVisualStyleBackColor = $false
+$Btn_LoadConfig.add_Click($Btn_LoadConfig_Click)
 #
 #Txt_ConfigFileName
 #
@@ -941,50 +986,6 @@ $toolStripStatusLabel2.Name = [string]'toolStripStatusLabel2'
 $toolStripStatusLabel2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]118,[System.Int32]17))
 $toolStripStatusLabel2.Text = [string]'toolStripStatusLabel2'
 $toolStripStatusLabel2.add_Click($toolStripStatusLabel2_Click)
-#
-#label27
-#
-$label27.AutoSize = $true
-$label27.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]189,[System.Int32]361))
-$label27.Name = [string]'label27'
-$label27.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]44,[System.Int32]13))
-$label27.TabIndex = [System.Int32]53
-$label27.Text = [string]'Minutes'
-#
-#label28
-#
-$label28.AutoSize = $true
-$label28.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]189,[System.Int32]387))
-$label28.Name = [string]'label28'
-$label28.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]49,[System.Int32]13))
-$label28.TabIndex = [System.Int32]55
-$label28.Text = [string]'Changes'
-#
-#mtxt_MinUpdate
-#
-$mtxt_MinUpdate.AsciiOnly = $true
-$mtxt_MinUpdate.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
-
-$mtxt_MinUpdate.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]150,[System.Int32]358))
-$mtxt_MinUpdate.Mask = [string]'00'
-$mtxt_MinUpdate.Name = [string]'mtxt_MinUpdate'
-$mtxt_MinUpdate.RejectInputOnFirstFailure = $true
-$mtxt_MinUpdate.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]33,[System.Int32]20))
-$mtxt_MinUpdate.TabIndex = [System.Int32]56
-$mtxt_MinUpdate.Text = [string]'05'
-#
-#mtxt_MaxChanges
-#
-$mtxt_MaxChanges.AsciiOnly = $true
-$mtxt_MaxChanges.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
-
-$mtxt_MaxChanges.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]150,[System.Int32]384))
-$mtxt_MaxChanges.Mask = [string]'00'
-$mtxt_MaxChanges.Name = [string]'mtxt_MaxChanges'
-$mtxt_MaxChanges.RejectInputOnFirstFailure = $true
-$mtxt_MaxChanges.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]33,[System.Int32]20))
-$mtxt_MaxChanges.TabIndex = [System.Int32]57
-$mtxt_MaxChanges.Text = [string]'10'
 #
 #MainForm
 #

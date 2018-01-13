@@ -244,12 +244,20 @@ Function Read-ConfigFile {
 				}
 
 	Write-Log -component "Read-ConfigFile" -Message "Pulling JSON File" -severity 1
+	[Void](Remove-Variable -Name Config -Scope Script )
     Try{
-	$Script:Config = (ConvertFrom-Json (Get-Content -raw $Script:ConfigPath))
-	Write-Log -component "Read-ConfigFile" -Message "Config File Read" -severity 2
+		$Script:Config=@{}
+		$Script:Config.AESKey = New-Object Byte[] 32
+		$Script:Config = (ConvertFrom-Json (Get-Content -raw $Script:ConfigPath))
+		Write-Log -component "Read-ConfigFile" -Message "Config File Read OK" -severity 2
+		Write-Log -component "Read-ConfigFile" -Message "Reading Key File" -severity 1
+		$Script:Config.AESKey = New-Object Byte[] 32
+		$AESKeyFilePath = $Script:ConfigPath -replace ".json",".key" #The Key should be in the same folder as the config 
+		$Script:Config.AESKey = Get-Content $AESKeyFilePath  
 		}
 	Catch {
-	Write-Log -component "Read-ConfigFile" -Message "Error reading Config file" -severity 3
+		Write-Log -component "Read-ConfigFile" -Message "Error reading Config or Key file, Loading Defaults" -severity 3
+		Load-DefaultConfig
 		}
 
 	Write-Log -component "Read-ConfigFile" -Message "Decrpyting Bot Password" -severity 2
@@ -273,10 +281,18 @@ Function Read-ConfigFile {
 
 Function Write-ConfigFile {
 	Write-Log -component "Write-ConfigFile" -Message "Writing Config file" -severity 2
-	Write-Log -component "Write-ConfigFile" -Message "Generating AES Key" -severity 1
-	# Generate a random AES Encryption Key.
-	$Script:Config.AESKey = New-Object Byte[] 32
-	[Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Script:Config.AESKey)
+	Write-Log -component "Write-ConfigFile" -Message "Writing AES Key to File" -severity 1
+	# Store the AESKey into a file. 
+	Try{
+		$AESKeyFilePath = $Script:ConfigPath -replace ".json",".key" #Store the Key in the same folder as the config 
+		Set-Content $AESKeyFilePath $Script:Config.AESKey   # Any existing AES Key file will be overwritten		
+		Write-Log -component "Write-ConfigFile" -Message "Key File Saved" -severity 2
+		}
+	Catch {
+		Write-Log -component "Write-ConfigFile" -Message "Error writing Key file" -severity 3
+		}
+	
+	#Pull Data from GUI to store in array
 	Write-Log -component "Write-ConfigFile" -Message "Encrpyting Bot Password" -severity 2
 	$SecurePassword = (ConvertTo-SecureString -string $Txt_BotPassword.text -asplaintext -force)
 	$Script:Config.BotPassword = (ConvertFrom-SecureString -securestring $SecurePassword -key $Script:Config.AESKey)
@@ -292,28 +308,53 @@ Function Write-ConfigFile {
     $Script:Config.SelectedFePool = $dbx_FePool.text
     $Script:Config.SelectedRule = $dbx_LocRule.text
 
-
+	#Remove the AES Key from the Config array, this stops it being stored in the json file
+	$Script:Config.AesKey = $null
+	
+	#Write the Json File
 	Try{
-	(ConvertTo-Json $Script:Config) | Out-File -FilePath $Script:ConfigPath -Encoding default
-	Write-Log -component "Write-ConfigFile" -Message "Config File Saved" -severity 2
+		(ConvertTo-Json $Script:Config) | Out-File -FilePath $Script:ConfigPath -Encoding default
+		Write-Log -component "Write-ConfigFile" -Message "Config File Saved" -severity 2
 		}
 	Catch {
-	Write-Log -component "Write-ConfigFile" -Message "Error writing Config file" -severity 3
+		Write-Log -component "Write-ConfigFile" -Message "Error writing Config file" -severity 3
 		}
-
-
-
 }
 
 Function Load-DefaultConfig {
-	
-
+	#Set Variables to Defaults
+	#Remove and re-create the Config Array
+		[Void](Remove-Variable -Name Config -Scope Script )
 		$Script:Config=@{}
-			$Script:Config.ConfigFileVersion = 0.2
-			$Script:Config.Description = "CsRgsLocBot Configuration file. See Skype4BAdmin.com for more information"
-			$Script:Config.Warning = "whilst passwords are encrpyted in this file, the Keys are also stored here! Please dont treat it as secure"
-			$Script:Config.SelectedFePool = "---None Selected---"
-			$Script:Config.SelectedRule = "---None Selected---"	
+	#Populate with Defaults
+			[Float]$Script:Config.ConfigFileVersion = "0.2"
+			[string]$Script:Config.Description = "CsRgsLocBot Configuration file. See Skype4BAdmin.com for more information"
+			[string]$Script:Config.Warning = "whilst passwords are encrpyted in this file, the Keys are also stored here! Please dont treat it as secure"
+			[string]$Script:Config.SelectedFePool = "---None Selected---"
+			[string]$Script:Config.SelectedRule = "---None Selected---"	
+			[string]$Script:Config.BotPassword = $null
+			[string]$Script:Config.BotAddress = "RgsLocBot@Skype4bAdmin.com"
+			[string]$Script:Config.AutoDiscover = "LyncDiscover@Skype4BAdmin.com"
+			[string]$Script:Config.DomainFQDN = "Skype4BAdmin.local"
+			[int]$Script:Config.MinUpdate = 5
+			[int]$Script:Config.MaxChanges = 10
+	#Generate an AES Key for password protection
+	
+			$Script:Config.AESKey = New-Object Byte[] 32
+			[Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Script:Config.AESKey)
+
+	#Now Set GUI Elements to Defaults
+	#Config Page
+	$Txt_BotSipAddr.Text = $Script:Config.BotAddress
+	$tbx_Autodiscover.text = $Script:Config.AutoDiscover
+	$txt_DomainFQDN.text = $Script:Config.DomainFQDN
+	$mtxt_MinUpdate.text = $Script:Config.MinUpdate
+	$mtxt_MaxChanges.text = $Script:Config.MaxChanges
+    
+    #Main Page
+    $dbx_FePool.text = $Script:Config.SelectedFePool
+    $dbx_LocRule.text = $Script:Config.SelectedRule
+	
 }
 
 Function Get-CSInfrastructure(){
@@ -386,6 +427,11 @@ $btn_SaveConfig_Click = {
 Write-ConfigFile
 }
 
+#Config Load Button
+$Btn_LoadConfig_Click = {
+Read-ConfigFile
+}
+
 
 #endregion Configtab
 
@@ -441,8 +487,7 @@ If(!(Test-Path $ConfigFilePath)) {
 			}
 			Else {
 			Write-Log -component "Config" -Message "Found $ConfigFilePath in the specified folder, loading" -severity 1
-            $Script:Config=@{}
-			Read-ConfigFile
+           	Read-ConfigFile
 				}
 
 
