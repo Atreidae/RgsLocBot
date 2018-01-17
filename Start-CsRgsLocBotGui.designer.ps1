@@ -239,6 +239,7 @@ $btn_newrule.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([S
 $btn_newrule.TabIndex = [System.Int32]17
 $btn_newrule.Text = [string]'New Rule'
 $btn_newrule.UseVisualStyleBackColor = $true
+$btn_newrule.add_Click($btn_newrule_Click)
 #
 #lbl_Rulename
 #
@@ -293,6 +294,7 @@ $Grp_RuleConfig.Controls.Add($btn_RuleSave)
 $Grp_RuleConfig.Controls.Add($dbx_LocBool)
 $Grp_RuleConfig.Controls.Add($label1)
 $Grp_RuleConfig.Controls.Add($cbx_Location)
+$Grp_RuleConfig.Enabled = $false
 $Grp_RuleConfig.ForeColor = [System.Drawing.Color]::FromArgb(([System.Int32]([System.Byte][System.Byte]8)),([System.Int32]([System.Byte][System.Byte]116)),([System.Int32]([System.Byte][System.Byte]170)))
 
 $Grp_RuleConfig.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]16,[System.Int32]80))

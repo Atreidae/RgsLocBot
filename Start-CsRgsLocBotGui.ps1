@@ -1,4 +1,5 @@
-﻿<#  
+﻿
+<#  
 .SYNOPSIS  
 	Todo, build synopsis
 
@@ -261,10 +262,14 @@ Function Read-ConfigFile {
 		}
 
 	Write-Log -component "Read-ConfigFile" -Message "Decrpyting Bot Password" -severity 2
+	#Grab the Variable from the Config file, stuff it into a SecureString, Then decrypt it with BSTR
 	$SecurePassword = (ConvertTo-SecureString -string $Script:Config.BotPassword  -key $Script:Config.AESKey)
     $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecurePassword)
     $Txt_BotPassword.text = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+
+	
     Write-Log -component "Read-ConfigFile" -Message "Importing Objects" -severity 1
+	#Grab items from the Config array and stuff them into the GUI
     #Config Page
 	$Txt_BotSipAddr.Text = $Script:Config.BotAddress
 	$tbx_Autodiscover.text = $Script:Config.AutoDiscover
@@ -273,7 +278,7 @@ Function Read-ConfigFile {
 	$mtxt_MaxChanges.text = $Script:Config.MaxChanges
     
     #Main Page
-    $dbx_FePool.text = $Script:Config.SelectedFePool
+    $dbx__FEpool.text = $Script:Config.SelectedFePool #Frikken extra underscore!
     $dbx_LocRule.text = $Script:Config.SelectedRule
 
 
@@ -305,7 +310,7 @@ Function Write-ConfigFile {
 	$Script:Config.MaxChanges = $mtxt_MaxChanges.text
     
     #Main Page
-    $Script:Config.SelectedFePool = $dbx_FePool.text
+    $Script:Config.SelectedFePool = $dbx__FePool.text
     $Script:Config.SelectedRule = $dbx_LocRule.text
 
 	#Remove the AES Key from the Config array, this stops it being stored in the json file
@@ -338,6 +343,9 @@ Function Load-DefaultConfig {
 			[string]$Script:Config.DomainFQDN = "Skype4BAdmin.local"
 			[int]$Script:Config.MinUpdate = 5
 			[int]$Script:Config.MaxChanges = 10
+	#declare the array for rules and groups
+			[array]$Script:Config.Rule = ""
+			[array]$Script:Config.LocBotGrp = ""
 	#Generate an AES Key for password protection
 	
 			$Script:Config.AESKey = New-Object Byte[] 32
@@ -371,6 +379,64 @@ $WPFCbx_ServiceID.Items.Clear()
 
 
 #region Controls
+
+#region RuleTab
+
+#New Rule Button
+$btn_newrule_Click = {
+	
+	#Create default variables
+	$script:RuleGuid = [string]([guid]::NewGuid())
+	$script:RuleName="New Rule"
+	$script:Rulelocations=@{}
+	$script:RuleADgroups=@{}
+	$script:RuleLocBotGroups=@{}
+	$script:RuleRgsGroups=@{}
+	$script:RuleLocationBoolean = 0
+	$script:RuleMemberLogic = 0
+	$script:RuleAction = 0
+	$script:RuleMessageBoolean = 0
+	$script:RuleAddedMessage =@"
+Hi There, RGSLocBot here. 
+Just letting you know you have been added to the <RuleName> queue as I've noticed your in the appropriate location.
+This means you will begin to recieve queue calls for <RuleName> in a few minutes.
+If you have any questions please contact the IT Support Desk
+"@
+	$script:RuleRemovedMessage=@"
+Hi There, RGSLocBot here. 
+Just letting you know you have been removed from the <RuleName> queue as I've noticed you left the appropriate location.
+This means you will no longer recieve queue calls for <RuleName> in a few minutes.
+If you have any questions please contact the IT Support Desk
+"@
+	
+
+
+	#Stuff it into a PSObject
+	$rule = New-Object -TypeName PSobject 
+    $rule | add-member NoteProperty "Guid" -value $script:RuleGuid
+    $rule | add-member NoteProperty "Name" -value $script:RuleName
+    $rule | add-member NoteProperty "Locations" -value $script:Rulelocations
+    $rule | add-member NoteProperty "ADGroups" -value $script:RuleADgroups
+    $rule | add-member NoteProperty "RuleLocBotGroups" -value $script:RuleLocBotGroups
+	$rule | add-member NoteProperty "RuleRgsGroups" -value $script:RuleRgsGroups
+	$rule | add-member NoteProperty "RuleLocationBoolean" -value $script:RuleLocationBoolean
+	$rule | add-member NoteProperty "RuleMemberLogic" -value $script:RuleMemberLogic
+	$rule | add-member NoteProperty "RuleAction" -value $script:RuleAction
+	$rule | add-member NoteProperty "RuleMessageBoolean" -value $script:RuleMessageBoolean
+	$rule | add-member NoteProperty "RuleAddedMessage" -value $script:RuleAddedMessage
+	$rule | add-member NoteProperty "RuleRemovedMessage" -value $script:RuleRemovedMessage
+
+	#Shove it into the 
+
+    $Script:Config.Rules =+ $rule
+
+
+}
+
+
+
+
+#endregion RuleTab
 
 
 #region Configtab
